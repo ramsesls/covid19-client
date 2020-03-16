@@ -1,0 +1,2 @@
+NODE_ENV=development
+HOSTER_PORT=8040
