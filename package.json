@@ -15,6 +15,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "dayjs": "^1.8.23",
+    "express-http-proxy": "^1.6.0",
     "is-mobile": "^2.2.1",
     "overmind": "^23.0.1",
     "overmind-react": "^24.0.1",
@@ -26,8 +27,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-prod": "cp env/.prod .env && yarn build && yarn serve",
-    "serve": "node hoster/server.js",
+    "start-prod": "yarn build && yarn serve",
+    "serve": "nodemon hoster/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

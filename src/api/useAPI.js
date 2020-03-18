@@ -7,7 +7,7 @@ export default function useAPI(url) {
 
   useEffect(_ => {
     const fetchData = async _ => {
-      fetch(`${process.env.REACT_APP_API_URI}/api/${url}`).then(res => res.json()).then(data => {
+      fetch(`${process.env.REACT_APP_API_URI}${url}`).then(res => res.json()).then(data => {
         setData(data);
         setIsLoading(false);
       }).catch(err => setError(err));
