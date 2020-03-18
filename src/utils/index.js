@@ -1,6 +1,6 @@
 import today from './today';
 import noop from './noop';
-import { formatNumber } from './format';
+import { formatNumber, formatDate } from './format';
 import { convertToLineChartData } from './convert';
 import isMobile from './isMobile';
 import resetApp from './resetApp';
@@ -12,4 +12,5 @@ export {
   convertToLineChartData,
   isMobile,
   resetApp,
+  formatDate,
 };

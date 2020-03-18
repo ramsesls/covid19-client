@@ -4,7 +4,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import PeopleIcon from '@material-ui/icons/People';
+import MapIcon from '@material-ui/icons/Map';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -22,11 +22,11 @@ export const mainListItems = (
       </Link>
     </ListItem>
     <ListItem button disabled>
-      <Link to="/about">
+      <Link to="/map">
         <ListItemIcon>
-          <PeopleIcon />
+          <MapIcon />
         </ListItemIcon>
-        <ListItemText primary="coming soon..." />
+        <ListItemText primary="World Map (c. soon...)" />
       </Link>
     </ListItem>
     <ListItem button disabled>

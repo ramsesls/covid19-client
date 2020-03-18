@@ -12,12 +12,6 @@ function About() {
   );
 }
 
-function Home() {
-  return (
-    <div>"Home"</div>
-  );
-}
-
 const routes = [
   {
     exact: true,
@@ -31,8 +25,8 @@ const routes = [
   },
   {
     exact: true,
-    path: '/home',
-    component: Home,
+    path: '/map',
+    component: AsyncComponentLoader(lazy(() => import('pages/Map'))),
   },
   {
     exact: true,
