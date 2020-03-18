@@ -22,57 +22,57 @@ export const mainListItems = (
         <ListItemText primary="Dashboard" />
       </Link>
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <Link to="/home">
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <ListItemText primary="coming soon..." />
       </Link>
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <Link to="/about">
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Customers" />
+        <ListItemText primary="coming soon..." />
       </Link>
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="coming soon..." />
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="coming soon..." />
     </ListItem>
   </div>
 );
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
+    <ListSubheader inset>Reports</ListSubheader>
+    <ListItem button disabled>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="coming soon..." />
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="coming soon..." />
     </ListItem>
-    <ListItem button>
+    <ListItem button disabled>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="coming soon..." />
     </ListItem>
   </div>
 );

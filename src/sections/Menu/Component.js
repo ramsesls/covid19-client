@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, secondaryListItems } from 'components/List';
-import { noop } from 'utils';
+import { noop, isMobile } from 'utils';
 
 const drawerWidth = 240;
 
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Menu({ isMenuOpen, handleMenuClose, isMobile }) {
+export default function Menu({ isMenuOpen, handleMenuClose }) {
   const classes = useStyles();
 
   return (

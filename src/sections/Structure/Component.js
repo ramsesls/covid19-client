@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import AppBar from 'components/AppBar';
+import AppBar from 'sections/AppBar';
 import Menu from 'sections/Menu';
 import Content from 'sections/Content';
-import Copyright from 'components/Copyright';
+import Copyright from 'sections/Copyright';
 
-import _isMobile from 'is-mobile';
-
-const isMobile = _isMobile();
+import { isMobile } from 'utils';
 
 const useStyles = makeStyles(theme => ({
   appBarSpacer: theme.mixins.toolbar,
@@ -41,8 +39,8 @@ export default function Structure() {
 
   return (
     <>
-      <AppBar isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} isMobile={isMobile} />
-      <Menu isMenuOpen={isMenuOpen} handleMenuClose={handleMenuClose} isMobile={isMobile} />
+      <AppBar isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
+      <Menu isMenuOpen={isMenuOpen} handleMenuClose={handleMenuClose} />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <div className={classes.mainSection}>

@@ -1,44 +1,45 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+
 import Title from 'components/Title';
-
-import { today } from 'utils';
-
-import { useAPI } from 'api';
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import { today, formatNumber } from 'utils';
 
 const useStyles = makeStyles({
   depositContext: {
     flex: 1,
   },
+  divider: {
+    margin: 10,
+  },
 });
 
-export default function Total() {
+export default function Total({ data }) {
   const classes = useStyles();
-  const [data, isLoading] = useAPI('/');
 
   return (
     <React.Fragment>
-      <Title>Total Confirmed</Title>
+      <Title>Confirmed</Title>
       <Typography component="p" variant="h4">
-        {
-          isLoading
-            ? 'loading...'
-            : new Intl.NumberFormat().format(data.confirmed.value)
-        }
+        {formatNumber(data.confirmed.value)}
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
-        on {today()}
+      <Divider className={classes.divider} />
+      <Title>Recovered</Title>
+      <Typography component="p" variant="h4">
+        {formatNumber(data.recovered.value)}
       </Typography>
+      <Divider className={classes.divider} />
+      <Title>Deaths</Title>
+      <Typography component="p" variant="h4">
+        {formatNumber(data.deaths.value)}
+      </Typography>
+      <Typography className={classes.depositContext}></Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          More Info
-        </Link>
+        <Typography color="textSecondary" className={classes.depositContext}>
+          on {today()}
+        </Typography>
       </div>
     </React.Fragment>
   );

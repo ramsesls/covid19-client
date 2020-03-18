@@ -6,9 +6,9 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-import Orders from 'components/Orders';
-import Chart from 'components/Chart';
-import Total from 'components/Total';
+import ProgressChart from 'sections/ProgressChart';
+import Summary from 'sections/Summary';
+import ReportByCountries from 'sections/ReportByCountries';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,22 +33,22 @@ export default function Dashboard() {
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
-        {/* Chart */}
-        <Grid item xs={12} md={8} lg={9}>
-          <Paper className={fixedHeightPaper}>
-            <Chart />
-          </Paper>
-        </Grid>
-        {/* Recent Total */}
+        {/* Summary */}
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper}>
-            <Total />
+            <Summary />
           </Paper>
         </Grid>
-        {/* Recent Orders */}
+        {/* ProgressChart */}
+        <Grid item xs={12} md={8} lg={9}>
+          <Paper className={fixedHeightPaper}>
+            <ProgressChart />
+          </Paper>
+        </Grid>
+        {/* Recent ReportByCountries */}
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Orders />
+            <ReportByCountries />
           </Paper>
         </Grid>
       </Grid>

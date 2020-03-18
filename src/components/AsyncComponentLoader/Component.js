@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Loading from 'components/Loading';
 
 const AsyncComponentLoader = Component => props => {
   return (
-    <Suspense fallback={<CircularProgress />}>
+    <Suspense fallback={<Loading />}>
       <Component {...props} />
     </Suspense>
   );

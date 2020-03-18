@@ -10,6 +10,7 @@ import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useStore } from 'store';
+import { isMobile } from 'utils';
 
 const drawerWidth = 240;
 
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     }),
   },
   menuButton: {
-    marginRight: 36,
+    marginRight: 20,
   },
   menuButtonHidden: {
     display: 'none',
@@ -41,9 +42,12 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
+  theme: {
+    minWidth: 130,
+  },
 }));
 
-const AppBar_ = ({ isMenuOpen, handleMenuOpen, isMobile }) => {
+const AppBar_ = ({ isMenuOpen, handleMenuOpen }) => {
   const classes = useStyles();
   const { state: { themeMode }, actions: { setThemeMode } } = useStore();
 
@@ -66,7 +70,15 @@ const AppBar_ = ({ isMenuOpen, handleMenuOpen, isMobile }) => {
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           COVID19 Information Portal
         </Typography>
-        <Switch color="default" checked={themeMode === 'dark'} onChange={handleChangeTheme} />
+        <div className={classes.theme}>
+          <Typography component="span" noWrap color="inherit">
+            light
+          </Typography>
+          <Switch color="default" checked={themeMode === 'dark'} onChange={handleChangeTheme} />
+          <Typography component="span" noWrap color="inherit">
+            dark
+          </Typography>
+        </div>
       </Toolbar>
     </AppBar>
   );
