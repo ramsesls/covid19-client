@@ -3,7 +3,11 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Dashboard from 'sections/Dashboard';
+import Structure from 'sections/Structure';
+import { ThemeProvider } from 'theme';
+import { StoreProvider } from 'store';
+
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,10 +19,16 @@ function App() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Dashboard />
-    </div>
+    <StoreProvider>
+      <ThemeProvider>
+        <div className={classes.root}>
+          <CssBaseline />
+          <Router>
+            <Structure />
+          </Router>
+        </div>
+      </ThemeProvider>
+    </StoreProvider>
   );
 }
 

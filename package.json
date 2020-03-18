@@ -14,8 +14,11 @@
     "@testing-library/user-event": "^7.1.2",
     "dayjs": "^1.8.23",
     "is-mobile": "^2.2.1",
+    "overmind": "^23.0.1",
+    "overmind-react": "^24.0.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0"
   },
   "scripts": {
