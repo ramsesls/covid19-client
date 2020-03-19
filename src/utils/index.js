@@ -4,6 +4,7 @@ import { formatNumber, formatDate } from './format';
 import { convertToLineChartData } from './convert';
 import isMobile from './isMobile';
 import resetApp from './resetApp';
+import combineSameCountries from './combineSameCountries';
 
 export {
   today,
@@ -13,4 +14,5 @@ export {
   isMobile,
   resetApp,
   formatDate,
+  combineSameCountries,
 };

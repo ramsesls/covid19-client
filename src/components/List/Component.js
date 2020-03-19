@@ -21,12 +21,12 @@ export const mainListItems = (
         <ListItemText primary="Dashboard" />
       </Link>
     </ListItem>
-    <ListItem button disabled>
+    <ListItem button>
       <Link to="/map">
         <ListItemIcon>
           <MapIcon />
         </ListItemIcon>
-        <ListItemText primary="World Map (c. soon...)" />
+        <ListItemText primary="World Map" />
       </Link>
     </ListItem>
     <ListItem button disabled>

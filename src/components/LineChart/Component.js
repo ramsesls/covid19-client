@@ -17,7 +17,7 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
 );
 
 const LineChart = ({ data, ...props }) => {
-  const colors = { scheme: 'dark2' };
+  const colors = ['#e41a1c', '#1a9e77'];
 
   return (
     <ResponsiveLine

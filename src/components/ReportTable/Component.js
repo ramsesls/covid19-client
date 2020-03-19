@@ -15,7 +15,7 @@ export default function ReportByCountries({ data }) {
   const [filter, setFilter] = useState('');
 
   const handleFilterChange = useCallback(ev => {
-    setFilter(ev.target.value);
+    setFilter(ev.target.value.toLowerCase());
   }, [setFilter]);
 
   return (
@@ -33,7 +33,7 @@ export default function ReportByCountries({ data }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.filter(item => item.countryRegion.includes(filter)).map((row, index) => (
+          {data.filter(item => item.countryRegion.toLowerCase().includes(filter)).map((row, index) => (
             <Tooltip key={index} title={`Last update: ${formatDate(row.lastUpdate)}`} placement="left">
               <TableRow>
                 <TableCell>{row.countryRegion}{row.provinceState ? ` (${row.provinceState})` : ''}</TableCell>
