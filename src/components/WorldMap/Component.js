@@ -9,7 +9,6 @@ import {
 } from 'react-simple-maps';
 
 import TooltipContent from './TooltipContent';
-import { combineSameCountries } from 'utils';
 
 const geoUrl = process.env.REACT_APP_GEO_WORLD_COUNTRIES;
 
@@ -41,7 +40,6 @@ const getMax = setting => {
 };
  
 const MapChart = ({ covidData, setting, setTooltipContent }) => {
-  const combinedData = useMemo(_ => combineSameCountries(covidData), [covidData]);
   const colorScale = useMemo(_ => scaleLinear()
     .domain([0, getMax(setting)])
     .range(["#4caf50", "#e53935"]),
@@ -59,7 +57,7 @@ const MapChart = ({ covidData, setting, setTooltipContent }) => {
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => {
-                const country = combinedData.find(item => item.iso3 === geo.properties.ISO_A3);
+                const country = covidData.find(item => item.iso3 === geo.properties.ISO_A3);
 
                 return (
                   <Geography

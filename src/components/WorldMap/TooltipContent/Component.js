@@ -5,6 +5,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
+import { formatDate } from 'utils';
+
 function TooltipContent({ data, additionName }) {
   if (!data) {
     return <List aria-label="tooltip">
@@ -36,6 +38,9 @@ function TooltipContent({ data, additionName }) {
     <Divider light />
     <ListItem>
       <ListItemText primary={`Active - ${data.active}`} />
+    </ListItem>
+    <ListItem>
+      <ListItemText primary={`Last Update - ${formatDate(data.lastUpdate)}`} />
     </ListItem>
   </List>;
 }

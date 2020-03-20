@@ -1,73 +1,81 @@
-const combineSameCountries = data => {
-  return data.reduce((acc, item) => {
-      const {active, confirmed, recovered, deaths} = item;
+const defaultCountryData = {
+  provinceState: null,
+  countryRegion: '',
+  lastUpdate: 0,
+  lat: 0,
+  long: 0,
+  confirmed: 0,
+  recovered: 0,
+  deaths: 0,
+  active: 0,
+  admin2: null,
+  fips: null,
+  combinedKey: null,
+  iso2: "",
+  iso3: "",
+};
 
-      if (item.countryRegion === 'China') {
-        acc[0].active += active;
-        acc[0].confirmed += confirmed;
-        acc[0].recovered += recovered;
-        acc[0].deaths += deaths;
-      } else if (item.countryRegion === 'US') {
-        acc[1].active += active;
-        acc[1].confirmed += confirmed;
-        acc[1].recovered += recovered;
-        acc[1].deaths += deaths;
-      } else if (item.countryRegion === 'Canada') {
-        acc[2].active += active;
-        acc[2].confirmed += confirmed;
-        acc[2].recovered += recovered;
-        acc[2].deaths += deaths;
-      } else {
-        acc.push(item)
+const combineSameCountries = data => {
+  const countries = data.reduce((acc, item) => {
+    const count = acc[item.countryRegion];
+
+    count
+      ? (acc[item.countryRegion] = count + 1)
+      : acc[item.countryRegion] = 1;
+
+    return acc;
+  }, {});
+
+  const countriesWithRegions = Object.entries(countries).filter(([name, count]) => count > 1).map(([name]) => name);
+
+  const combined = data.reduce((acc, item) => {
+    if (countriesWithRegions.includes(item.countryRegion)) {
+      let currentCountry = acc[item.countryRegion];
+      const {
+        countryRegion,
+        lastUpdate,
+        lat,
+        long,
+        confirmed,
+        recovered,
+        deaths,
+        active,
+        admin2,
+        fips,
+        combinedKey,
+        iso2,
+        iso3,
+      } = item;
+
+      if (!currentCountry) {
+        currentCountry = (acc[item.countryRegion] = {
+          ...defaultCountryData,
+          countryRegion,
+          admin2,
+          fips,
+          combinedKey,
+          iso2,
+          iso3,
+          lat,
+          long,
+        });
       }
 
-      return acc;
-  }, [{
-      provinceState: null,
-      countryRegion: "China",
-      lastUpdate: 1584612794000,
-      lat: 30.9756403482891,
-      long: 112.270692167452,
-      confirmed: 0,
-      recovered: 0,
-      deaths: 0,
-      active: 0,
-      admin2: null,
-      fips: null,
-      combinedKey: null,
-      iso2: "CN",
-      iso3: "CHN"
-  }, {
-      provinceState: null,
-      countryRegion: "US",
-      lastUpdate: 1584643383000,
-      lat: 42.165726,
-      long: -74.948051,
-      confirmed: 0,
-      recovered: 0,
-      deaths: 0,
-      active: 0,
-      admin2: null,
-      fips: null,
-      combinedKey: null,
-      iso2: "US",
-      iso3: "USA"
-  }, {
-      provinceState: null,
-      countryRegion: "Canada",
-      lastUpdate: 1584636184000,
-      lat: 51.2538,
-      long: -85.3232,
-      confirmed: 0,
-      recovered: 0,
-      deaths: 0,
-      active: 0,
-      admin2: null,
-      fips: null,
-      combinedKey: null,
-      iso2: "CA",
-      iso3: "CAN"
-}]);
+
+      currentCountry.active += active;
+      currentCountry.confirmed += confirmed;
+      currentCountry.recovered += recovered;
+      currentCountry.deaths += deaths;
+
+      if (lastUpdate > currentCountry.lastUpdate) {
+        currentCountry.lastUpdate = lastUpdate;
+      }
+    }
+
+    return acc;
+  }, {});
+
+  return [...data, ...Object.values(combined)].sort((a, b) => b.confirmed - a.confirmed);
 };
 
 export default combineSameCountries;
