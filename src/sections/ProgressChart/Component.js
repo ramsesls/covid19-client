@@ -7,14 +7,14 @@ import { useNivoTheme } from 'theme';
 import { convertToLineChartData } from 'utils';
 import { useAPI } from 'api';
 
-export default function ProgressChart() {
+export default function PieChart() {
   const [data, isLoading] = useAPI('/daily');
   const theme = useNivoTheme();
 
   return isLoading
     ? <Loading />
     : <LineChart
-      data={data ? convertToLineChartData(data) : []}
+      data={convertToLineChartData(data)}
       theme={theme}
     />;
 };

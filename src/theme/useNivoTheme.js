@@ -18,6 +18,13 @@ const additionalStylesForLineChartDarkMode = {
       background: '#181414',
     },
   },
+  axis: {
+    ticks: {
+      line: {
+        stroke: '#fff',  
+      }
+    }
+  }
 };
 
 function useNivoTheme() {

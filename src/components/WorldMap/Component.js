@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
     height: 60,
     display: 'flex',
     'align-items': 'center',
+    'border-top-left-radius': 0,
+    'border-bottom-right-radius': 0,
+
   },
   root: {
     position: 'relative',

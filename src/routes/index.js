@@ -26,6 +26,11 @@ const routes = [
     component: AsyncComponentLoader(lazy(() => import('pages/Analytics'))),
   },
   {
+    exact: true,
+    path: '/what-to-do',
+    component: AsyncComponentLoader(lazy(() => import('pages/WhatToDo'))),
+  },
+  {
     component: NotFound,
   },
 ];
