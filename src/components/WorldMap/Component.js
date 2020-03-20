@@ -1,6 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from 'react';
 
-import { scaleLinear } from "d3-scale";
+import { makeStyles } from '@material-ui/core/styles';
+import PlusIcon from '@material-ui/icons/Add';
+import MinusIcon from '@material-ui/icons/Remove';
+import Paper from '@material-ui/core/Paper';
+import Fab from '@material-ui/core/Fab';
+
+import { scaleLinear } from 'd3-scale';
 import {
   ComposableMap,
   Geographies,
@@ -9,6 +15,25 @@ import {
 } from 'react-simple-maps';
 
 import TooltipContent from './TooltipContent';
+
+const useStyles = makeStyles(theme => ({
+  controls: {
+    position: 'absolute',
+    'z-index': 1,
+    top: 0,
+    right: 0,
+    width: 110,
+    height: 60,
+    display: 'flex',
+    'align-items': 'center',
+  },
+  root: {
+    position: 'relative',
+  },
+  icon: {
+    'margin-left': 10,
+  }
+}));
 
 const geoUrl = process.env.REACT_APP_GEO_WORLD_COUNTRIES;
 
@@ -40,20 +65,33 @@ const getMax = setting => {
 };
  
 const MapChart = ({ covidData, setting, setTooltipContent }) => {
+  const [zoom, setZoom] = useState(1.5);
+  const classes = useStyles();
+
   const colorScale = useMemo(_ => scaleLinear()
     .domain([0, getMax(setting)])
     .range(["#4caf50", "#e53935"]),
   [setting]);
 
+  function handleZoomIn() {
+    if (zoom >= 5) return;
+    setZoom(zoom * 1.5);
+  }
+
+  function handleZoomOut() {
+    if (zoom <= 1) return;
+    setZoom(zoom / 1.5);
+  }
+
   return (
-    <>
+    <div className={classes.root}>
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{ scale: 60 }}
         data-tip=""
         className="full-size"
       >
-        <ZoomableGroup>
+        <ZoomableGroup zoom={zoom}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => {
@@ -90,7 +128,15 @@ const MapChart = ({ covidData, setting, setTooltipContent }) => {
           </Geographies>
         </ZoomableGroup>
       </ComposableMap>
-    </>
+      <Paper className={classes.controls}>
+        <Fab color="primary" aria-label="plus" size="small" className={classes.icon} onClick={handleZoomIn}>
+          <PlusIcon />
+        </Fab>
+        <Fab color="primary" aria-label="minus" size="small" className={classes.icon} onClick={handleZoomOut}>
+          <MinusIcon />
+        </Fab>
+      </Paper>
+    </div>
   );
 };
 

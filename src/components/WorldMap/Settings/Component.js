@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     height: 400,
     'padding-left': 20,
     'padding-top': 20,
+    'z-index': 1,
   },
   title: {
     'margin-bottom': 10, 

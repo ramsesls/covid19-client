@@ -1,16 +1,8 @@
-import React from 'react';
-
 import { lazy } from 'react';
 
 import NotFound from 'components/NotFound';
 
 import AsyncComponentLoader from 'components/AsyncComponentLoader';
-
-function About() {
-  return (
-    <div>"About"</div>
-  );
-}
 
 const routes = [
   {
@@ -30,8 +22,8 @@ const routes = [
   },
   {
     exact: true,
-    path: '/about',
-    component: About,
+    path: '/analytics',
+    component: AsyncComponentLoader(lazy(() => import('pages/Analytics'))),
   },
   {
     component: NotFound,

@@ -1,3 +1,3 @@
-import { mainListItems, secondaryListItems } from './Component';
+import { MainList, SecondaryList } from './Component';
 
-export { mainListItems, secondaryListItems };
+export { MainList, SecondaryList };
