@@ -29,6 +29,29 @@
 
       gtag('config', 'UA-160816126-1');
     </script>
+
+    <!-- ie -->
+
+    <script type="text/javascript">
+      var ua = navigator.userAgent;
+      var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+
+      if (is_ie) {
+        setTimeout(function() {
+          var h1 = document.createElement('h1');
+          h1.innerText = "You are using Internet Explorer browser. We don't support it, please change your browser!";
+
+          document.body.innerHTML = '';
+          document.body.appendChild(h1);
+        }, 1500);
+      }
+    </script>
+
+    <!-- polyfills -->
+
+    <script type="text/javascript">
+      [].includes||(Array.prototype.includes=function(t){"use strict";var r=Object(this),e=parseInt(r.length)||0;if(0===e)return!1;var n,i=parseInt(arguments[1])||0;for(i>=0?n=i:(n=e+i,0>n&&(n=0));e>n;){var s=r[n];if(t===s||t!==t&&s!==s)return!0;n++}return!1}),String.prototype.includes||(String.prototype.includes=function(){"use strict";return-1!==String.prototype.indexOf.apply(this,arguments)});
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
