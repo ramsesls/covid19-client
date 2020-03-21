@@ -166,7 +166,7 @@ export default function Menu({ isMenuOpen, handleMenuClose }) {
         </IconButton>
       </div>
       <Divider />
-      <MainList handleMenuClose={handleMenuClose} />
+      <MainList handleMenuClose={isMobile ? handleMenuClose : noop} />
       <Divider />
       <SecondaryList handleDialogOpen={handleDialogOpen} />
       <ContactsDialog open={open} handleDialogClose={handleDialogClose} />
