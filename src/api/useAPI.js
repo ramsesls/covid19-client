@@ -1,21 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { combineSameCountries } from 'utils';
 
 export default function useAPI(url) {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [state, setState] = useState({
+    data: null,
+    isLoading: true,
+    error: null,
+  });
+
+  const isUnMounted = useRef(false);
 
   useEffect(_ => {
     const fetchData = async _ => {
       fetch(`${process.env.REACT_APP_API_URI}${url}`).then(res => res.json()).then(data => {
-        setData(url === '/confirmed' ? combineSameCountries(data) : data);
-        setIsLoading(false);
-      }).catch(err => setError(err));
+        if (!isUnMounted.current) {
+          setState({
+            data: url === '/confirmed' ? combineSameCountries(data) : data,
+            isLoading: false,
+            error: null,
+          });
+        }
+      }).catch(err => setState(state => ({ ...state, error: err })));
     };
 
     fetchData();
-  }, [setData, setIsLoading, url]);
+
+    return _ => (isUnMounted.current = true);
+  }, [setState, url]);
+
+  const { data, isLoading, error } = state;
 
   return [data, isLoading, error];
 }

@@ -1,6 +1,15 @@
-const convertToLineChartData = data => data.reduce((acc, item) => {
-  acc[0].data.push({ x: item.reportDateString, y: item.totalConfirmed });
-  acc[1].data.push({ x: item.reportDateString, y: item.totalRecovered });
+const getY = (value, type) => {
+  switch(type) {
+    case 'linear': return value;
+    case 'log': return Math.log(value);
+    case 'log10': return Math.log10(value);
+    default: return value;
+  }
+}
+
+const convertToLineChartData = (data, type = 'linear') => data.reduce((acc, item) => {
+  acc[0].data.push({ x: item.reportDateString, y: getY(item.totalConfirmed, type) });
+  acc[1].data.push({ x: item.reportDateString, y: getY(item.totalRecovered, type) });
   return acc;
 }, [{id: 'Confirmed', data: []}, {id: 'Recovered', data: []}]);
 

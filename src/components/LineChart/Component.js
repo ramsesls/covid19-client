@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ResponsiveLine } from '@nivo/line'
-import { isMobile } from 'utils';
+import { isMobile, formatTooltipDate } from 'utils';
 
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
   <g>
@@ -15,6 +15,10 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
     />
   </g>
 );
+
+function getTooltipContent(point) {
+  return `${point.data.yFormatted} ${point.serieId.toLowerCase()} on ${formatTooltipDate(point.data.x)}`;
+}
 
 const LineChart = ({ data, ...props }) => {
   const colors = ['#e41a1c', '#1a9e77'];
@@ -44,6 +48,7 @@ const LineChart = ({ data, ...props }) => {
       pointSymbol={CustomSymbol}
       pointSize={10}
       pointBorderWidth={1}
+      tooltip={({ point }) => getTooltipContent(point)}
       pointBorderColor={{
         from: 'color',
         modifiers: [['darker', 0.3]],
@@ -61,10 +66,10 @@ const LineChart = ({ data, ...props }) => {
       pointLabel="none"
       legends={[
         {
-          anchor: 'top-left',
+          anchor: 'top-right',
           direction: 'column',
           justify: false,
-          translateX: -50,
+          translateX: 0,
           translateY: -50,
           itemsSpacing: 0,
           itemDirection: 'left-to-right',

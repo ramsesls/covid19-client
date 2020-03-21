@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import PlusIcon from '@material-ui/icons/Add';
@@ -13,6 +13,8 @@ import {
   Geography,
   ZoomableGroup,
 } from 'react-simple-maps';
+
+import { ranges } from 'config';
 
 import TooltipContent from './TooltipContent';
 
@@ -42,7 +44,7 @@ const geoUrl = process.env.REACT_APP_GEO_WORLD_COUNTRIES;
 
 const standardDistributionCriteria = ['confirmed', 'recovered', 'deaths', 'active'];
 
-const getScale = (country, setting, population) => {
+const getCountryValue = (country, setting, population) => {
   if (!country) return 0;
 
   if (standardDistributionCriteria.includes(setting)) {
@@ -52,29 +54,23 @@ const getScale = (country, setting, population) => {
   }
 }
 
-const getMax = setting => {
-  switch(setting) {
-    case 'confirmed':
-      return 20000;
-    case 'recovered':
-      return 7000;
-    case 'deaths':
-      return 4000;
-    case 'active':
-      return 20000;
-    default:
-      return 3000;
-  }
-};
- 
+const colorScale = number => {
+  if (!number) return '#00ff00';
+
+  const range = ranges.find(({ min, max }) => (number > min && number <= max));
+
+  const { min, max, colorStart, colorEnd } = range;
+
+  const currentScaleLinear = scaleLinear()
+    .domain([min, max])
+    .range([colorStart, colorEnd]);
+
+  return currentScaleLinear(number);
+}
+
 const MapChart = ({ covidData, setting, setTooltipContent }) => {
   const [zoom, setZoom] = useState(1.5);
   const classes = useStyles();
-
-  const colorScale = useMemo(_ => scaleLinear()
-    .domain([0, getMax(setting)])
-    .range(["#4caf50", "#e53935"]),
-  [setting]);
 
   function handleZoomIn() {
     if (zoom >= 5) return;
@@ -112,7 +108,7 @@ const MapChart = ({ covidData, setting, setTooltipContent }) => {
                     }}
                     style={{
                       default: {
-                        fill: colorScale(getScale(country, setting, geo.properties.POP_EST)),
+                        fill: colorScale(getCountryValue(country, setting, geo.properties.POP_EST)),
                         outline: "none",
                       },
                       hover: {

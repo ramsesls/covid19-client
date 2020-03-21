@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
+    position: 'relative',
   },
   mainSection: {
     display: 'flex',

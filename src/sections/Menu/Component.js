@@ -28,12 +28,12 @@ import clsx from 'clsx';
 import { useLocation } from 'react-router-dom';
 
 
-export const MainList = _ => {
+export const MainList = ({ handleMenuClose }) => {
   const location = useLocation();
 
   return <List>
     <div>
-      <ListItem button selected={location.pathname === '/dashboard'}>
+      <ListItem onClick={handleMenuClose} button selected={location.pathname === '/dashboard'}>
         <Link to="/dashboard">
           <ListItemIcon>
             <DashboardIcon />
@@ -41,7 +41,7 @@ export const MainList = _ => {
           <ListItemText primary="Dashboard" />
         </Link>
       </ListItem>
-      <ListItem button selected={location.pathname === '/analytics'}>
+      <ListItem onClick={handleMenuClose} button selected={location.pathname === '/analytics'}>
         <Link to="/analytics">
           <ListItemIcon>
             <BarChartIcon />
@@ -49,7 +49,7 @@ export const MainList = _ => {
           <ListItemText primary="Analytics" />
         </Link>
       </ListItem>
-      <ListItem button selected={location.pathname === '/map'}>
+      <ListItem onClick={handleMenuClose} button selected={location.pathname === '/map'}>
         <Link to="/map">
           <ListItemIcon>
             <MapIcon />
@@ -57,7 +57,7 @@ export const MainList = _ => {
           <ListItemText primary="World Map" />
         </Link>
       </ListItem>
-      <ListItem button selected={location.pathname === '/what-to-do'}>
+      <ListItem onClick={handleMenuClose} button selected={location.pathname === '/what-to-do'}>
         <Link to="/what-to-do">
           <ListItemIcon>
             <LayersIcon />
@@ -148,6 +148,7 @@ export default function Menu({ isMenuOpen, handleMenuClose }) {
 
   function handleDialogOpen() {
     setOpen(true);
+    handleMenuClose();
   }
 
   return (
@@ -165,7 +166,7 @@ export default function Menu({ isMenuOpen, handleMenuClose }) {
         </IconButton>
       </div>
       <Divider />
-      <MainList />
+      <MainList handleMenuClose={handleMenuClose} />
       <Divider />
       <SecondaryList handleDialogOpen={handleDialogOpen} />
       <ContactsDialog open={open} handleDialogClose={handleDialogClose} />
