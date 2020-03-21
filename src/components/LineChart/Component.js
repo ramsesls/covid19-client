@@ -16,11 +16,20 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
   </g>
 );
 
-function getTooltipContent(point) {
-  return `${point.data.yFormatted} ${point.serieId.toLowerCase()} on ${formatTooltipDate(point.data.x)}`;
+function getYAxisValue(value, type) {
+  switch(type) {
+    case 'linear': return value;
+    case 'log': return Math.ceil(Math.exp(value));
+    case 'log10': return Math.ceil(10 ** value);
+    default: return value;
+  }
 }
 
-const LineChart = ({ data, ...props }) => {
+function getTooltipContent(point, type) {
+  return `${getYAxisValue(point.data.yFormatted, type)} ${point.serieId.toLowerCase()} on ${formatTooltipDate(point.data.x)}`;
+}
+
+const LineChart = ({ data, type, ...props }) => {
   const colors = ['#e41a1c', '#1a9e77'];
 
   return (
@@ -38,6 +47,7 @@ const LineChart = ({ data, ...props }) => {
       }}
       axisLeft={{
         legendOffset: 12,
+        format: value => getYAxisValue(value, type),
       }}
       axisBottom={{
         format: '%b %d',
@@ -48,7 +58,7 @@ const LineChart = ({ data, ...props }) => {
       pointSymbol={CustomSymbol}
       pointSize={10}
       pointBorderWidth={1}
-      tooltip={({ point }) => getTooltipContent(point)}
+      tooltip={({ point }) => getTooltipContent(point, type)}
       pointBorderColor={{
         from: 'color',
         modifiers: [['darker', 0.3]],

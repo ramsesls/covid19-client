@@ -1,4 +1,6 @@
 const getY = (value, type) => {
+  if (!value) return 0;
+
   switch(type) {
     case 'linear': return value;
     case 'log': return Math.log(value);
