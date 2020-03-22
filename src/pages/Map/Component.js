@@ -36,7 +36,7 @@ export default function Map() {
         isCovidDataLoading
           ? <Loading />
           : (
-            <div>
+            <div className="full-size">
               <Settings value={setting} onChange={handleSettingsChange} />
               <WorldMap covidData={covidData} setting={setting} setTooltipContent={setTooltipContent} />
               <Tooltip>{tooltipContent}</Tooltip>

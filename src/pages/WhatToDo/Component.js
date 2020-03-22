@@ -25,12 +25,16 @@ const useStyles = makeStyles(theme => ({
 
 const videos = [
   {
+    src: 'https://www.youtube.com/embed/BtN-goy9VOY',
+    title: 'Understanding COVID19',
+  },
+  {
     src: 'https://www.youtube.com/embed/h8OX0FNWANM',
     title: 'Wash Your Hands!',
   },
   {
     src: 'https://www.youtube.com/embed/-LKVUarhtvE',
-    title: 'Why To Wash Our Hands?',
+    title: 'How To Wash Our Hands?',
   },
   {
     src: 'https://www.youtube.com/embed/nMY0-4p9P-M',
@@ -39,7 +43,7 @@ const videos = [
   {
     src: 'https://www.youtube.com/embed/Kas0tIxDvrg',
     title: 'A Litle Bit Numbers...'
-  }
+  },
 ];
 
 export default function Contacts() {

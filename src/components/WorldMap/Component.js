@@ -15,6 +15,7 @@ import {
 } from 'react-simple-maps';
 
 import { ranges } from 'config';
+import { isMobile } from 'utils';
 
 import TooltipContent from './TooltipContent';
 
@@ -34,6 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   root: {
     position: 'relative',
+    height: '100%',
   },
   icon: {
     'margin-left': 10,
@@ -69,7 +71,7 @@ const colorScale = number => {
 }
 
 const MapChart = ({ covidData, setting, setTooltipContent }) => {
-  const [zoom, setZoom] = useState(1.5);
+  const [zoom, setZoom] = useState(2);
   const classes = useStyles();
 
   function handleZoomIn() {
@@ -90,7 +92,7 @@ const MapChart = ({ covidData, setting, setTooltipContent }) => {
         data-tip=""
         className="full-size"
       >
-        <ZoomableGroup zoom={zoom}>
+        <ZoomableGroup center={[0, isMobile ? -45 : 25]} zoom={zoom}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => {

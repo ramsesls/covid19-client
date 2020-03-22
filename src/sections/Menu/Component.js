@@ -41,20 +41,20 @@ export const MainList = ({ handleMenuClose }) => {
           <ListItemText primary="Dashboard" />
         </Link>
       </ListItem>
-      <ListItem onClick={handleMenuClose} button selected={location.pathname === '/analytics'}>
-        <Link to="/analytics">
-          <ListItemIcon>
-            <BarChartIcon />
-          </ListItemIcon>
-          <ListItemText primary="Analytics" />
-        </Link>
-      </ListItem>
       <ListItem onClick={handleMenuClose} button selected={location.pathname === '/map'}>
         <Link to="/map">
           <ListItemIcon>
             <MapIcon />
           </ListItemIcon>
           <ListItemText primary="World Map" />
+        </Link>
+      </ListItem>
+      <ListItem onClick={handleMenuClose} button selected={location.pathname === '/analytics'}>
+        <Link to="/analytics">
+          <ListItemIcon>
+            <BarChartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Analytics" />
         </Link>
       </ListItem>
       <ListItem onClick={handleMenuClose} button selected={location.pathname === '/what-to-do'}>
