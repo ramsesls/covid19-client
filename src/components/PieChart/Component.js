@@ -2,6 +2,8 @@ import React from 'react';
 
 import { ResponsivePie } from '@nivo/pie';
 
+import ChartWrapper from 'components/ChartWrapper';
+
 const PieChart = ({ data, color, ...props }) => {
   const colors = { scheme: 'red_yellow_blue' };
 
@@ -37,4 +39,6 @@ const PieChart = ({ data, color, ...props }) => {
   />
 };
 
-export default PieChart;
+const WrappedChart = props => <ChartWrapper><PieChart {...props} /></ChartWrapper>;
+
+export default WrappedChart;

@@ -33,3 +33,14 @@ code {
 .link-without-styles:visited, .link-without-styles:active, .link-without-styles:focus {
   color: inherit;
 }
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+}

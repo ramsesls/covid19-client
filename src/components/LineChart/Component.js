@@ -3,6 +3,8 @@ import React from 'react';
 import { ResponsiveLine } from '@nivo/line'
 import { isMobile, formatTooltipDate } from 'utils';
 
+import ChartWrapper from 'components/ChartWrapper';
+
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
   <g>
     <circle fill="#fff" r={size / 2} strokeWidth={borderWidth} stroke={borderColor} />
@@ -105,4 +107,7 @@ const LineChart = ({ data, type, ...props }) => {
   );
 };
 
-export default LineChart;
+const WrappedChart = props => <ChartWrapper><LineChart {...props} /></ChartWrapper>;
+
+export default WrappedChart;
+

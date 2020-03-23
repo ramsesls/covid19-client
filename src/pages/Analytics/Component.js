@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
   fixedHeight: {
     height: 500,
+    position: 'relative',
   },
 }));
 

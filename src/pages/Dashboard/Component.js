@@ -42,7 +42,7 @@ export default function Dashboard() {
         {/* ProgressChart */}
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            <ProgressChart />
+             <ProgressChart />
           </Paper>
         </Grid>
         {/* Recent ReportByCountries */}

@@ -6,6 +6,8 @@ import MinusIcon from '@material-ui/icons/Remove';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 
+import ChartWrapper from 'components/ChartWrapper';
+
 import { scaleLinear } from 'd3-scale';
 import {
   ComposableMap,
@@ -141,4 +143,6 @@ const MapChart = ({ covidData, setting, setTooltipContent }) => {
   );
 };
 
-export default MapChart;
+const WrappedChart = props => <ChartWrapper><MapChart {...props} /></ChartWrapper>;
+
+export default WrappedChart;

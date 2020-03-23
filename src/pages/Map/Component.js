@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
     'margin-right': 20,
     'margin-top': 20,
     overflow: 'hidden',
+    position: 'relative',
   },
 }));
 

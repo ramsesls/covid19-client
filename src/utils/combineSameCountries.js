@@ -17,6 +17,11 @@ const defaultCountryData = {
 
 const combineSameCountries = data => {
   const countries = data.reduce((acc, item) => {
+
+    if (item.countryRegion === 'United Kingdom' || item.countryRegion === 'France') {
+      return acc;
+    }
+
     const count = acc[item.countryRegion];
 
     count
