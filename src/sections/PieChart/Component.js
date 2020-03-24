@@ -10,7 +10,7 @@ import { useAPI } from 'api';
 
 
 export default function _PieChart({ title, criterion, color }) {
-  const [data, isLoading] = useAPI('/confirmed');
+  const [data, isLoading] = useAPI('/confirmed?level=countryRegion');
   const theme = useNivoTheme();
 
   return isLoading

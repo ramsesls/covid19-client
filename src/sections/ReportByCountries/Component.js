@@ -6,7 +6,7 @@ import Loading from 'components/Loading';
 import { useAPI } from 'api';
 
 export default function Summary() {
-  const [data, isLoading] = useAPI('/confirmed');
+  const [data, isLoading] = useAPI('/confirmed?level=countryRegion');
 
   return isLoading
     ? <Loading />

@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 export default function Map() {
   const [setting, setSetting] = useState('confirmed');
   const [tooltipContent, setTooltipContent] = useState('');
-  const [covidData, isCovidDataLoading] = useAPI('/confirmed');
+  const [covidData, isCovidDataLoading] = useAPI('/confirmed?level=countryRegion');
   const classes = useStyles();
 
 

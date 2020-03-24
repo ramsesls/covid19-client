@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { combineSameCountries } from 'utils';
 
 export default function useAPI(url) {
   const [state, setState] = useState({
@@ -15,7 +14,7 @@ export default function useAPI(url) {
       fetch(`${process.env.REACT_APP_API_URI}${url}`).then(res => res.json()).then(data => {
         if (!isUnMounted.current) {
           setState({
-            data: url === '/confirmed' ? combineSameCountries(data) : data,
+            data,
             isLoading: false,
             error: null,
           });
