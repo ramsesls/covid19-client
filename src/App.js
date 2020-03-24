@@ -3,8 +3,8 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ErrorBoundary from 'react-error-boundary';
-import ErrorBoundaryFallback from 'components/ErrorBoundaryFallback';
+import withErrorHandler from 'errorHandling';
+import { App as ErrorBoundaryFallback } from 'errorHandling/Fallbacks';
 
 import Structure from 'sections/Structure';
 import { ThemeProvider } from 'theme';
@@ -22,19 +22,17 @@ function App() {
   const classes = useStyles();
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
-      <StoreProvider>
-        <ThemeProvider>
-          <div className={classes.root}>
-            <CssBaseline />
-            <Router>
-              <Structure />
-            </Router>
-          </div>
-        </ThemeProvider>
-      </StoreProvider>
-    </ErrorBoundary>
+    <StoreProvider>
+      <ThemeProvider>
+        <div className={classes.root}>
+          <CssBaseline />
+          <Router>
+            <Structure />
+          </Router>
+        </div>
+      </ThemeProvider>
+    </StoreProvider>
   );
 }
 
-export default App;
+export default withErrorHandler(App, ErrorBoundaryFallback);

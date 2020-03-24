@@ -6,7 +6,8 @@ import MinusIcon from '@material-ui/icons/Remove';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 
-import ChartWrapper from 'components/ChartWrapper';
+import withErrorHandling from 'errorHandling';
+import { WrongData as WrongDataFallback } from 'errorHandling/Fallbacks';
 
 import { scaleLinear } from 'd3-scale';
 import {
@@ -143,6 +144,4 @@ const MapChart = ({ covidData, setting, setTooltipContent }) => {
   );
 };
 
-const WrappedChart = props => <ChartWrapper><MapChart {...props} /></ChartWrapper>;
-
-export default WrappedChart;
+export default withErrorHandling(MapChart, WrongDataFallback);

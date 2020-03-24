@@ -3,7 +3,8 @@ import React from 'react';
 import { ResponsiveLine } from '@nivo/line'
 import { isMobile, formatTooltipDate } from 'utils';
 
-import ChartWrapper from 'components/ChartWrapper';
+import withErrorHandling from 'errorHandling';
+import { WrongData as WrongDataFallback } from 'errorHandling/Fallbacks';
 
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
   <g>
@@ -107,7 +108,5 @@ const LineChart = ({ data, type, ...props }) => {
   );
 };
 
-const WrappedChart = props => <ChartWrapper><LineChart {...props} /></ChartWrapper>;
-
-export default WrappedChart;
+export default withErrorHandling(LineChart, WrongDataFallback);
 
