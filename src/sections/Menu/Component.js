@@ -33,7 +33,7 @@ export const MainList = ({ handleMenuClose }) => {
 
   return <List>
     <div>
-      <ListItem onClick={handleMenuClose} button selected={location.pathname === '/dashboard'}>
+      <ListItem onClick={handleMenuClose} button selected={location.pathname === '/' || location.pathname === '/dashboard'}>
         <Link to="/dashboard">
           <ListItemIcon>
             <DashboardIcon />

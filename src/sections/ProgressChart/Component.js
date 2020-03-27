@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PieChart() {
   const [data, isLoading] = useAPI('/daily');
-  const [type, setType] = useState('linear');
+  const [type, setType] = useState('log');
   const classes = useStyles();
   const theme = useNivoTheme();
 

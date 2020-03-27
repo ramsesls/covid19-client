@@ -10,10 +10,11 @@ const getY = (value, type) => {
 }
 
 const convertToLineChartData = (data, type = 'linear') => data.reduce((acc, item) => {
-  acc[0].data.push({ x: item.reportDate, y: getY(item.totalConfirmed, type) });
-  acc[1].data.push({ x: item.reportDate, y: getY(item.totalRecovered, type) });
+  acc[0].data.push({ x: item.reportDate, y: getY(item.deaths.total, type) });
+  acc[1].data.push({ x: item.reportDate, y: getY(item.confirmed.total, type) });
+
   return acc;
-}, [{id: 'Confirmed', data: []}, {id: 'Recovered', data: []}]);
+}, [{ id: 'Deaths', data: [] }, { id: 'Confirmed', data: [] }]);
 
 const convertToPieChartData = (data, criterion) => {
   const sortedData = criterion === 'confirmed'

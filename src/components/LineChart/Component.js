@@ -28,22 +28,27 @@ function getYAxisValue(value, type) {
   }
 }
 
+const colors = ['#000000', '#e41a1c'];
+
+function getTickValues([confirmed, deaths]) {
+  const data = confirmed.data.length > deaths.data.length ? confirmed.data : deaths.data;
+  return data.filter((_, i) => !(i % (isMobile ? 8 : 4))).map(item => new Date(item.x));
+}
+
 function getTooltipContent(point, type) {
   return `${getYAxisValue(point.data.yFormatted, type)} ${point.serieId.toLowerCase()} on ${formatTooltipDate(point.data.x)}`;
 }
 
 const LineChart = ({ data, type, ...props }) => {
-  const colors = ['#e41a1c', '#1a9e77'];
-
   return (
     <ResponsiveLine
       data={data}
       xScale={{
         type: 'time',
-        format: '%Y/%m/%d',
+        format: '%Y-%m-%d',
         precision: 'day',
       }}
-      xFormat="time:%Y/%m/%d"
+      xFormat="time:%Y-%m-%d"
       yScale={{
         type: 'linear',
         min: 0,
@@ -54,7 +59,9 @@ const LineChart = ({ data, type, ...props }) => {
       }}
       axisBottom={{
         format: '%b %d',
-        tickValues: `every ${isMobile ? 12 : 7} days`
+        tickValues: getTickValues(data),
+        tickRotation: -45,
+        tickPadding: 10,
       }}
       curve={'natural'}
       enablePointLabel={false}
@@ -71,7 +78,6 @@ const LineChart = ({ data, type, ...props }) => {
       enableGridY={false}
       enableArea={true}
       enableSlices={false}
-      areaBlendMode="difference"
       margin={{ top: 50, right: 10, bottom: 50, left: 60 }}
       axisTop={null}
       axisRight={null}
