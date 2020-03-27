@@ -8,6 +8,7 @@ import WorldMap, { Settings } from 'components/WorldMap';
 import Loading from 'components/Loading';
 
 import { useAPI } from 'api';
+import { dataCorrection } from 'utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +27,6 @@ export default function Map() {
   const [covidData, isCovidDataLoading] = useAPI('/confirmed?level=countryRegion');
   const classes = useStyles();
 
-
   const handleSettingsChange = event => {
     setSetting(event.target.value);
   };
@@ -39,7 +39,7 @@ export default function Map() {
           : (
             <div className="full-size">
               <Settings value={setting} onChange={handleSettingsChange} />
-              <WorldMap covidData={covidData} setting={setting} setTooltipContent={setTooltipContent} />
+              <WorldMap covidData={dataCorrection(covidData)} setting={setting} setTooltipContent={setTooltipContent} />
               <Tooltip>{tooltipContent}</Tooltip>
             </div>
           )

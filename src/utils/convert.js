@@ -9,6 +9,18 @@ const getY = (value, type) => {
   }
 }
 
+function correctUSData(us) {
+  if (us.active === 0) {
+    return { ...us, active: us.confirmed - us.deaths - us.recovered }
+  }
+
+  return us;
+}
+
+const dataCorrection = (data, location) => {
+  return data.map(country => country.countryRegion === 'US' ? correctUSData(country) : country);
+}
+
 const convertToLineChartData = (data, type = 'linear') => data.reduce((acc, item) => {
   acc[0].data.push({ x: item.reportDate, y: getY(item.deaths.total, type) });
   acc[1].data.push({ x: item.reportDate, y: getY(item.confirmed.total, type) });
@@ -17,9 +29,11 @@ const convertToLineChartData = (data, type = 'linear') => data.reduce((acc, item
 }, [{ id: 'Deaths', data: [] }, { id: 'Confirmed', data: [] }]);
 
 const convertToPieChartData = (data, criterion) => {
+  const _data = dataCorrection(data, 'pie chart');
+
   const sortedData = criterion === 'confirmed'
-    ? data
-    : data.sort((a, b) => b[criterion] - a[criterion]);
+    ? _data
+    : [..._data].sort((a, b) => b[criterion] - a[criterion]);
 
   const top10 = sortedData.filter(item => !item.provinceState).slice(0, 10);
 
@@ -30,4 +44,4 @@ const convertToPieChartData = (data, criterion) => {
   }));
 }
 
-export { convertToLineChartData, convertToPieChartData };
+export { convertToLineChartData, convertToPieChartData, dataCorrection };

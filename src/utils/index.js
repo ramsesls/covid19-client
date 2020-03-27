@@ -1,7 +1,7 @@
 import today from './today';
 import noop from './noop';
 import { formatNumber, formatDate, formatTooltipDate } from './format';
-import { convertToLineChartData, convertToPieChartData } from './convert';
+import { convertToLineChartData, convertToPieChartData, dataCorrection } from './convert';
 import isMobile from './isMobile';
 import resetApp from './resetApp';
 import combineSameCountries from './combineSameCountries';
@@ -17,4 +17,5 @@ export {
   combineSameCountries,
   convertToPieChartData,
   formatTooltipDate,
+  dataCorrection,
 };
