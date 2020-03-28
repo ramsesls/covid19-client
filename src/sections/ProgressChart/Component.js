@@ -1,39 +1,17 @@
 import React, { useState } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import clsx from 'clsx';
 
-import LineChart from 'components/LineChart';
+import LineChart from 'components/Charts/Line';
 import Loading from 'components/Loading';
-import LineChartButtons from 'components/Button/LineChart';
+import LineChartButtons from 'components/Charts/Line/Button';
 
 import { useNivoTheme } from 'theme';
 import { convertToLineChartData } from 'utils';
 import { useAPI } from 'api';
 
-const useStyles = makeStyles(theme => ({
-  controls: {
-    position: 'absolute',
-    'z-index': 1,
-    top: -theme.spacing(2),
-    left: -theme.spacing(2),
-    width: 225,
-    height: 50,
-    'padding-left': 5,
-    display: 'flex',
-    'align-items': 'center',
-    'border-top-right-radius': 0,
-    'border-bottom-left-radius': 0,
-
-  },
-  root: {
-    position: 'relative',
-  },
-  icon: {
-    'margin-left': 10,
-  },
-}));
+import useStyles from './styles';
 
 export default function PieChart() {
   const [data, isLoading] = useAPI('/daily');

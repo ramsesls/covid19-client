@@ -1,25 +1,16 @@
 import React, { useState } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Tooltip from "react-tooltip";
+import Tooltip from 'react-tooltip';
 
-import WorldMap, { Settings } from 'components/WorldMap';
+import WorldMap from 'components/Maps/World';
+import Settings from 'components/Maps/Settings';
 import Loading from 'components/Loading';
 
 import { useAPI } from 'api';
 import { dataCorrection } from 'utils';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: 'calc(100% - 72px)',
-    'margin-left': 20,
-    'margin-right': 20,
-    'margin-top': 20,
-    overflow: 'hidden',
-    position: 'relative',
-  },
-}));
+import useStyles from './styles';
 
 export default function Map() {
   const [setting, setSetting] = useState('confirmed');

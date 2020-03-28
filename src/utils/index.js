@@ -4,7 +4,7 @@ import { formatNumber, formatDate, formatTooltipDate } from './format';
 import { convertToLineChartData, convertToPieChartData, dataCorrection } from './convert';
 import isMobile from './isMobile';
 import resetApp from './resetApp';
-import combineSameCountries from './combineSameCountries';
+import makeCancelable from './makeCancelable';
 
 export {
   today,
@@ -14,8 +14,8 @@ export {
   isMobile,
   resetApp,
   formatDate,
-  combineSameCountries,
   convertToPieChartData,
   formatTooltipDate,
   dataCorrection,
+  makeCancelable,
 };

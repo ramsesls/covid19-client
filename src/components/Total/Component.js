@@ -1,20 +1,12 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 import Title from 'components/Title';
 import { today, formatNumber } from 'utils';
 
-const useStyles = makeStyles({
-  depositContext: {
-    flex: 1,
-  },
-  divider: {
-    margin: 10,
-  },
-});
+import useStyles from './styles';
 
 export default function Total({ data }) {
   const classes = useStyles();

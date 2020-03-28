@@ -18,7 +18,7 @@ const routes = [
   {
     exact: true,
     path: '/map',
-    component: AsyncComponentLoader(lazy(() => import('pages/Map'))),
+    component: AsyncComponentLoader(lazy(() => import('pages/WorldMap'))),
   },
   {
     exact: true,
@@ -29,6 +29,11 @@ const routes = [
     exact: true,
     path: '/what-to-do',
     component: AsyncComponentLoader(lazy(() => import('pages/WhatToDo'))),
+  },
+  {
+    exact: true,
+    path: '/usa',
+    component: AsyncComponentLoader(lazy(() => import('pages/USA'))),
   },
   {
     component: NotFound,

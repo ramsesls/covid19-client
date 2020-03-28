@@ -1,28 +1,13 @@
 import React from 'react';
 
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 import PieChart from 'sections/PieChart';
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 500,
-    position: 'relative',
-  },
-}));
+import useStyles from './styles';
 
 export default function Analytics() {
   const classes = useStyles();

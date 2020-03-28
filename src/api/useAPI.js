@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+
+import { makeCancelable } from 'utils';
 
 export default function useAPI(url) {
   const [state, setState] = useState({
@@ -7,24 +9,19 @@ export default function useAPI(url) {
     error: null,
   });
 
-  const isUnMounted = useRef(false);
-
   useEffect(_ => {
-    const fetchData = async _ => {
-      fetch(`${process.env.REACT_APP_API_URI}${url}`).then(res => res.json()).then(data => {
-        if (!isUnMounted.current) {
-          setState({
-            data,
-            isLoading: false,
-            error: null,
-          });
-        }
-      }).catch(err => setState(state => ({ ...state, error: err })));
-    };
+    setState(state => ({ ...state, isLoading: true }));
+    const cancelable = makeCancelable(fetch(`${process.env.REACT_APP_API_URI}${url}`).then(res => res.json()));
 
-    fetchData();
+    cancelable.then(data => {
+      setState({
+        data,
+        isLoading: false,
+        error: null,
+      });
+    }).catch(err => setState(state => ({ ...state, error: err })));
 
-    return _ => (isUnMounted.current = true);
+    return _ => cancelable.cancel();
   }, [setState, url]);
 
   const { data, isLoading, error } = state;

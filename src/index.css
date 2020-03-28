@@ -17,6 +17,10 @@ code {
   height: 100%;
 }
 
+._relative {
+  position: relative;
+}
+
 .at-the-bottom {
   position: absolute !important;
   bottom: 0;

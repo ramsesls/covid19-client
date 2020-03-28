@@ -9,4 +9,78 @@ const ranges = [
   { min: 120000, max: Infinity, colorStart: '#660000', colorEnd: '#330000' },
 ];
 
-export { ranges };
+const mapSettings = {
+  main: [
+    {
+      value: 'confirmed',
+      name: 'Confirmed',
+    },
+    {
+      value: 'recovered',
+      name: 'Recovered',
+    },
+    {
+      value: 'deaths',
+      name: 'Deaths',
+    },
+    {
+      value: 'active',
+      name: 'Active',
+    },
+  ],
+  optional: [
+    {
+      value: 'population_confirmed',
+      name: 'Confirmed per 10M inhabitants',
+    },
+    {
+      value: 'population_recovered',
+      name: 'Recovered per 10M inhabitants',
+    },
+    {
+      value: 'population_deaths',
+      name: 'Deaths per 10M inhabitants',
+    },
+    {
+      value: 'population_active',
+      name: 'Active per 10M inhabitants',
+    },
+  ],
+};
+
+const menuItems = {
+  main: [
+    {
+      path: '/dashboard',
+      isDefault: true,
+      icon: 'Dashboard',
+      title: 'Dashboard',
+    },
+    {
+      path: '/map',
+      icon: 'Map',
+      title: 'World Map',
+    },
+    {
+      path: '/usa',
+      icon: 'Map',
+      title: 'USA',
+    },
+    {
+      path: '/analytics',
+      icon: 'BarChart',
+      title: 'Analytics',
+    },
+    {
+      path: '/what-to-do',
+      icon: 'Layers',
+      title: 'What To Do?',
+    },
+  ],
+
+  optional: {
+
+  }
+}
+
+export { ranges, mapSettings, menuItems };
