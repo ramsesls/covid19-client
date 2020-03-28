@@ -45,7 +45,9 @@ export const MainList = ({ handleMenuClose, items }) => {
             >
               <Link to={item.path}>
                 <ListItemIcon className="_relative">
-                  {AsyncComponentLoader(lazy(() => import(`./icons/${item.icon}`)), { size: 30 })()}
+                  {AsyncComponentLoader(
+                    lazy(() => import(`./icons/${item.icon}`)), { size: 30, withoutBackground: true }
+                  )()}
                 </ListItemIcon>
                 <ListItemText primary={item.title} />
               </Link>
@@ -78,12 +80,10 @@ function ContactsDialog({ handleDialogClose, open }) {
 }
 
 export const OptionalList = ({ handleDialogOpen }) => {
-  const location = useLocation();
-
   return (
     <List className="at-the-bottom">
       <div>
-        <ListItem button onClick={handleDialogOpen} selected={location.pathname === '/contacts'}>
+        <ListItem button onClick={handleDialogOpen}>
           <ListItemIcon>
             <EmailIcon />
           </ListItemIcon>

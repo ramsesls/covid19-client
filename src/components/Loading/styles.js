@@ -10,8 +10,10 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    background: 'none',
   },
+  open: {
+    background: 'none',
+  }
 }));
 
 export default useStyles;
