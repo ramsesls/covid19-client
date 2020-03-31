@@ -1,6 +1,7 @@
 import 'proxy-polyfill';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
+
+import './index.css';
 
 Promise.all([
   import('react'),

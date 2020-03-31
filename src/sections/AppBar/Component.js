@@ -10,6 +10,7 @@ import Switch from '@material-ui/core/Switch';
 
 import { useStore } from 'store';
 import { isMobile } from 'utils';
+import { appTitle } from 'config';
 
 import useStyles from './styles';
 
@@ -34,7 +35,7 @@ const AppBar_ = ({ isMenuOpen, handleMenuOpen }) => {
           <MenuIcon />
         </IconButton>
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          COVID19 Information Portal
+          {appTitle}
         </Typography>
         <div className={classes.theme}>
           <Typography component="span" noWrap color="inherit">

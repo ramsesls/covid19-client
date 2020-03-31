@@ -11,8 +11,8 @@ const defaultCountryData = {
   admin2: null,
   fips: null,
   combinedKey: null,
-  iso2: "",
-  iso3: "",
+  iso2: '',
+  iso3: '',
 };
 
 const combineSameCountries = data => {

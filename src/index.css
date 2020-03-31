@@ -29,9 +29,9 @@ code {
 
 .link-without-styles {
   text-decoration: none;
-    display: flex;
-    color: inherit;
-    width: 100%;
+  display: flex;
+  color: inherit;
+  width: 100%;
 }
 
 .link-without-styles:visited, .link-without-styles:active, .link-without-styles:focus {

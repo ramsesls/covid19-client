@@ -11,17 +11,13 @@ import {
   ZoomableGroup,
 } from 'react-simple-maps';
 
-import { ranges } from 'config';
-import { isMobile } from 'utils';
-
 import Controls from 'components/Maps/Controls';
 import TooltipContent from 'components/Maps/TooltipContent';
 
+import { isMobile } from 'utils';
+import { colorRanges, geoUrls, standardDistributionCriteria } from 'config';
+
 import useStyles from './styles';
-
-const geoUrl = process.env.REACT_APP_GEO_WORLD_COUNTRIES;
-
-const standardDistributionCriteria = ['confirmed', 'recovered', 'deaths', 'active'];
 
 const getCountryValue = (country, setting, population) => {
   if (!country) return 0;
@@ -36,7 +32,7 @@ const getCountryValue = (country, setting, population) => {
 const colorScale = number => {
   if (!number) return '#00ff00';
 
-  const range = ranges.find(({ min, max }) => (number > min && number <= max));
+  const range = colorRanges.find(({ min, max }) => (number > min && number <= max));
 
   const { min, max, colorStart, colorEnd } = range;
 
@@ -85,7 +81,7 @@ const WorldMapChart = ({ covidData, setting, setTooltipContent }) => {
         className="full-size"
       >
         <ZoomableGroup center={[0, isMobile ? -45 : 25]} zoom={zoom}>
-          <Geographies geography={geoUrl}>
+          <Geographies geography={geoUrls.world}>
             {({ geographies }) =>
               geographies.map(geo => {
                 const country = covidData.find(item => item.iso3 === geo.properties.ISO_A3);

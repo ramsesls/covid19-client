@@ -5,6 +5,8 @@ import { ResponsivePie } from '@nivo/pie';
 import withErrorHandling from 'errorHandling';
 import { WrongData as WrongDataFallback } from 'errorHandling/Fallbacks';
 
+import { chartDefaults } from 'config';
+
 const PieChart = ({ data, color, ...props }) => {
   const colors = { scheme: 'red_yellow_blue' };
 
@@ -18,24 +20,8 @@ const PieChart = ({ data, color, ...props }) => {
 
   return <ResponsivePie
     data={data}
-    margin={{ top: 25, bottom: 25, left: 80, right: 80 }}
-    innerRadius={0.5}
-    padAngle={0}
-    sortByValue={true}
-    cornerRadius={0}
     colors={colors}
-    borderWidth={1}
-    borderColor={{ from: 'color', modifiers: [ [ 'darker', 1 ] ] }}
-    radialLabelsSkipAngle={10}
-    radialLabelsTextXOffset={6}
-    radialLabelsLinkOffset={0}
-    radialLabelsLinkDiagonalLength={16}
-    radialLabelsLinkHorizontalLength={24}
-    radialLabelsLinkStrokeWidth={1}
-    slicesLabelsSkipAngle={10}
-    animate={true}
-    motionStiffness={90}
-    motionDamping={15}
+    {...chartDefaults.pie}
     {...props}
   />
 };

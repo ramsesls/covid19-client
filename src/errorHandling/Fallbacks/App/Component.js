@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import ResetIcon from '@material-ui/icons/Refresh';
 
 import { resetApp } from 'utils';
+import { crashMessages } from 'config';
 
 import useStyles from './styles';
 
@@ -16,17 +17,17 @@ const ErrorBoundaryFallback = _ => {
     <div className={classes.wrapper}>
       <Paper className={classes.paper}>
         <Typography variant="h5" component="h3">
-          Oooops... Sorry, I guess, something went wrong. You can:
+          {crashMessages.app.title}
         </Typography>
         <div className={classes.buttons}>
           <div>
             <Button target="_blank" rel="noreferrer" href="mailto: contact@surenatoyan.com">
-              contact with author by this email - contact@surenatoyan.com
+              {crashMessages.app.options.email}
             </Button>
           </div>
           <Typography component="h6">or</Typography>
           <div>
-            <Button onClick={resetApp}>Press here to reset the application <ResetIcon /></Button>
+            <Button onClick={resetApp}>{crashMessages.app.options.reset} <ResetIcon /></Button>
           </div>
         </div>
       </Paper>

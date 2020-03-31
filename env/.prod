@@ -2,4 +2,3 @@ NODE_ENV=production
 API_SERVER_PORT=8087
 HOSTER_PORT=8041
 REACT_APP_API_URI=/api
-REACT_APP_GEO_WORLD_COUNTRIES=https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json

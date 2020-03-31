@@ -1,31 +1,7 @@
 import { extendDefaultTheme, defaultTheme } from '@nivo/core';
 import { useStore } from 'store';
 
-const additionalStylesForLineChartDarkMode = {
-  textColor: '#FFFFFF',
-  grid: {
-    line: {
-      stroke: '#181414',
-    },
-  },
-  crosshair: {
-    line: {
-      stroke: '#f50057',
-    },
-  },
-  tooltip: {
-    container: {
-      background: '#181414',
-    },
-  },
-  axis: {
-    ticks: {
-      line: {
-        stroke: '#fff',  
-      }
-    }
-  }
-};
+import { chartDefaults } from 'config';
 
 function useNivoTheme() {
   const { state: { themeMode } } = useStore();
@@ -33,7 +9,7 @@ function useNivoTheme() {
   const theme = themeMode === 'dark'
     ? extendDefaultTheme(
         defaultTheme,
-        additionalStylesForLineChartDarkMode,
+        chartDefaults.darkMode,
       )
     : defaultTheme;
 

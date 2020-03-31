@@ -36,6 +36,11 @@ const routes = [
     component: AsyncComponentLoader(lazy(() => import('pages/USA'))),
   },
   {
+    exact: true,
+    path: '/historical',
+    component: AsyncComponentLoader(lazy(() => import('pages/Historical'))),
+  },
+  {
     component: NotFound,
   },
 ];

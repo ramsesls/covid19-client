@@ -10,10 +10,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
-const logarithmTypes = {
-  log: 'Logarithm with base e',
-  log10: 'Logarithm with base 10',
-};
+import { logarithmTypes } from 'config';
 
 export default function LogarithmicButton({ onChange, type }) {
   const [open, setOpen] = useState(false);

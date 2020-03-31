@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 
 import withErrorHandler from 'errorHandling';
 import { App as ErrorBoundaryFallback } from 'errorHandling/Fallbacks';
@@ -12,24 +12,16 @@ import { StoreProvider } from 'store';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
-}));
-
 function App() {
-  const classes = useStyles();
-
   return (
     <StoreProvider>
       <ThemeProvider>
-        <div className={classes.root}>
+        <Box display="flex">
           <CssBaseline />
           <Router>
             <Structure />
           </Router>
-        </div>
+        </Box>
       </ThemeProvider>
     </StoreProvider>
   );

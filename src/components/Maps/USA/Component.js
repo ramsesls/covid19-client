@@ -11,25 +11,18 @@ import {
   ZoomableGroup,
 } from 'react-simple-maps';
 
-import { ranges } from 'config';
-import { isMobile } from 'utils';
-
 import Controls from 'components/Maps/Controls';
 import TooltipContent from 'components/Maps/TooltipContent';
 
+import { isMobile } from 'utils';
+import { colorRanges, geoUrls, standardDistributionCriteria } from 'config';
+
 import useStyles from './styles';
-
-const geoUrl = {
-  counties: 'https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json',
-  states: 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json',
-};
-
-const standardDistributionCriteria = ['confirmed', 'recovered', 'deaths', 'active'];
 
 const colorScale = number => {
   if (!number) return '#00ff00';
 
-  const range = ranges.find(({ min, max }) => (number > min && number <= max));
+  const range = colorRanges.find(({ min, max }) => (number > min && number <= max));
 
   const { min, max, colorStart, colorEnd } = range;
 
@@ -87,7 +80,7 @@ const USAMap = ({ data, dividedInto, setting, setTooltipContent }) => {
         className="full-size"
       >
         <ZoomableGroup center={[-97, isMobile ? 30 : 40]} zoom={zoom}>
-          <Geographies geography={geoUrl[dividedInto]}>
+          <Geographies geography={geoUrls.usa[dividedInto]}>
             {({ geographies }) =>
               geographies.map(geo => {
                 const current = data.find(item => (item.fips === geo.id) || (item.admin2 === geo.properties.name));

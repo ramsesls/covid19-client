@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { crashMessages } from 'config';
+
 function WrongData() {
-  return <div className="chart-wrapper">Some problem with data, please try a little bit later</div>;
+  return <div className="chart-wrapper">{crashMessages.chart.title}</div>;
 }
 
 export default WrongData;

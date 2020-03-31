@@ -8,19 +8,15 @@ import USAMap from 'components/Maps/USA';
 import Loading from 'components/Loading';
 
 import { useAPI } from 'api';
+import { usaEndPoints } from 'config';
 
 import useStyles from './styles';
-
-const urls = {
-  states: '/countries/US/confirmed?level=provinceState',
-  counties: '/countries/US/confirmed',
-};
 
 export default function USA() {
   const [setting, setSetting] = useState('confirmed');
   const [tooltipContent, setTooltipContent] = useState('');
   const [dividedInto, setDividedInto] = useState('states');
-  const [data, isLoading] = useAPI(urls[dividedInto]);
+  const [data, isLoading] = useAPI(usaEndPoints[dividedInto]);
   const classes = useStyles();
 
   const handleSettingsChange = event => {

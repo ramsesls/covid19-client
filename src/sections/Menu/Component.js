@@ -22,7 +22,7 @@ import { useLocation } from 'react-router-dom';
 
 import Link from 'components/Link';
 import { noop, isMobile } from 'utils';
-import { menuItems } from 'config';
+import { menuItems, authorInfo } from 'config';
 
 import useStyles from './styles';
 
@@ -45,6 +45,7 @@ export const MainList = ({ handleMenuClose, items }) => {
             >
               <Link to={item.path}>
                 <ListItemIcon className="_relative">
+                  {/* NOTE: it should be removed */}
                   {AsyncComponentLoader(
                     lazy(() => import(`./icons/${item.icon}`)), { size: 30, withoutBackground: true }
                   )()}
@@ -62,16 +63,16 @@ export const MainList = ({ handleMenuClose, items }) => {
 function ContactsDialog({ handleDialogClose, open }) {
   return (
     <Dialog onClose={handleDialogClose} aria-labelledby="contacts-dialog" open={open}>
-      <DialogTitle id="contacts-dialog">To Contact The Author</DialogTitle>
+      <DialogTitle id="contacts-dialog">{authorInfo.message}</DialogTitle>
       <List>
         <ListItem button>
-          <a href="mailto: contact@surenatoyan.com" className="link-without-styles">
+          <a href={`mailto: ${authorInfo.email}`} className="link-without-styles">
             <ListItemAvatar>
               <Avatar>
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="contact@surenatoyan.com" />
+            <ListItemText primary={authorInfo.email} />
           </a>
         </ListItem>
       </List>
