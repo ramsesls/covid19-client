@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const colorRanges = [
   { min: 0, max: 100, colorStart: '#FFCCCC', colorEnd: '#FF9999' },
   { min: 100, max: 400, colorStart: '#FF9999', colorEnd: '#FF6666' },
@@ -251,6 +253,16 @@ const dateFormat = 'DD MMMM, YYYY';
 
 const cancelationMessage = 'operation is manually canceled';
 
+const historical = {
+  dates: {
+    from: dayjs().subtract(30, 'days'),
+    to: dayjs(),
+  },
+  countries: {
+    default: ['Italy', 'China', 'US', 'Canada', 'Germany', 'Armenia'],
+  }
+};
+
 export {
   colorRanges,
   mapSettings,
@@ -267,4 +279,5 @@ export {
   authorInfo,
   dateFormat,
   cancelationMessage,
+  historical,
 };
