@@ -39,10 +39,13 @@ const getLineChartData = (data, criterion, type, date) => {
   };
 };
 
-const convertHistoricalToLineChartData = (data, type = 'linear', criterion, currentDate) => {
+const convertHistoricalToLineChartData = (data, type = 'linear', criterion, selected, currentDate) => {
+  const dates = Object.keys(data);
+  const selectedDates = dates.slice(0, dates.indexOf(currentDate));
+
   return Object.entries(data).reduce((acc, [date, item]) => {
-    if (dayjs(currentDate).isAfter(dayjs(date))) {
-      item.forEach(daily => {
+    item.forEach(daily => {
+      if (selected.includes(daily.countryRegion) && selectedDates.includes(date)) {
         const country = acc.find(bl => bl.id === daily.countryRegion);
 
         if (country) {
@@ -50,15 +53,11 @@ const convertHistoricalToLineChartData = (data, type = 'linear', criterion, curr
         } else {
           acc.push({ id: daily.countryRegion, data: [getLineChartData(daily, criterion, type, date)] })
         }
-      });
-    }
+      }
+    });
 
     return acc;
   }, []);
-};
-
-const pickFromData = (data, selected) => {
-  return data.filter(datum => selected.includes(datum.id));
 };
 
 const convertToPieChartData = (data, criterion) => {
@@ -82,5 +81,4 @@ export {
   convertToPieChartData,
   dataCorrection,
   convertHistoricalToLineChartData,
-  pickFromData,
 };

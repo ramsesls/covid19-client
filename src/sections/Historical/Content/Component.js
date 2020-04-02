@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -32,7 +32,15 @@ export default function Content({
     `/historical?from=${getFormattedDate(from)}&to=${getFormattedDate(to)}`
   );
 
-  const currentData = data && data[currentDate];
+  const prevDayDate = useMemo(_ => {
+    return getFormattedDate(dayjs(currentDate).subtract(1, 'days'));
+  }, [currentDate]);
+
+  const currentDataForMap = useMemo(_ => {
+    if (data && mode === 'map') {
+      return data[currentDate] || data[prevDayDate];
+    }
+  }, [data, mode, currentDate, prevDayDate]);
 
   return (
     <Box display="flex" className={classes.root}>
@@ -42,18 +50,18 @@ export default function Content({
           : <div className="full-size">
             {
               mode === 'map'
-                ? currentData
+                ? currentDataForMap
                 ? <Map
-                    data={currentData}
+                    data={currentDataForMap}
                     criterion={criterion}
                     by="countryRegion"
                   />
                 : <Container>No Data</Container>
                 : <Chart
-                  data={data}
-                  selected={selectedCountries}
-                  criterion={criterion}
-                  currentDate={currentDate}
+                    data={data}
+                    selected={selectedCountries}
+                    criterion={criterion}
+                    currentDate={currentDate}
                  />
             }
           </div>

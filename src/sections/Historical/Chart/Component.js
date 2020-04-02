@@ -7,7 +7,7 @@ import LineChart from 'components/Charts/Line';
 import LineChartButtons from 'components/Charts/Line/Button';
 
 import { useNivoTheme } from 'theme';
-import { convertHistoricalToLineChartData, formatTooltipDate, pickFromData } from 'utils';
+import { convertHistoricalToLineChartData, formatTooltipDate } from 'utils';
 
 import useStyles from './styles';
 
@@ -36,17 +36,13 @@ export default function Chart({ data, selected, criterion, currentDate }) {
   }
 
   const _data = useMemo(_ => {
-    return convertHistoricalToLineChartData(data, type, criterion, currentDate);
-  }, [data, type, criterion, currentDate]);
-
-  const selectedData = useMemo(_ => {
-    return pickFromData(_data, selected);
-  }, [_data, selected]);
+    return convertHistoricalToLineChartData(data, type, criterion, selected, currentDate);
+  }, [data, type, criterion, selected, currentDate]);
 
   return (
     <div className={clsx(classes.root, 'full-size')}>
       <LineChart
-        data={selectedData}
+        data={_data}
         theme={theme}
         type={type}
         colors={colors}
