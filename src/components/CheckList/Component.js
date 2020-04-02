@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 import useStyles from './styles';
 
-export default function CheckList({ data, onChange, selected, isLoading, title, placeholder }) {
+export default function CheckList({ data, onChange, selected, isLoading, title, placeholder, ...props }) {
   const classes = useStyles();
 
   return (
@@ -41,6 +41,7 @@ export default function CheckList({ data, onChange, selected, isLoading, title, 
             placeholder={placeholder}
           />
         )}
+        {...props}
       />
     </FormControl>
   );

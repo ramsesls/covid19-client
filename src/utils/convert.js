@@ -1,3 +1,7 @@
+import dayjs from 'dayjs';
+
+import { historical } from 'config';
+
 const getY = (value, type) => {
   if (!value) return 0;
 
@@ -28,6 +32,35 @@ const convertToLineChartData = (data, type = 'linear') => data.reduce((acc, item
   return acc;
 }, [{ id: 'Deaths', data: [] }, { id: 'Confirmed', data: [] }]);
 
+const getLineChartData = (data, criterion, type, date) => {
+  return {
+    x: dayjs(date || data.lastUpdate).format(historical.dates.lineChartFormat),
+    y: getY(data[criterion], type),
+  };
+};
+
+const convertHistoricalToLineChartData = (data, type = 'linear', criterion, currentDate) => {
+  return Object.entries(data).reduce((acc, [date, item]) => {
+    if (dayjs(currentDate).isAfter(dayjs(date))) {
+      item.forEach(daily => {
+        const country = acc.find(bl => bl.id === daily.countryRegion);
+
+        if (country) {
+          country.data.push(getLineChartData(daily, criterion, type, date));
+        } else {
+          acc.push({ id: daily.countryRegion, data: [getLineChartData(daily, criterion, type, date)] })
+        }
+      });
+    }
+
+    return acc;
+  }, []);
+};
+
+const pickFromData = (data, selected) => {
+  return data.filter(datum => selected.includes(datum.id));
+};
+
 const convertToPieChartData = (data, criterion) => {
   const _data = dataCorrection(data, 'pie chart');
 
@@ -44,4 +77,10 @@ const convertToPieChartData = (data, criterion) => {
   }));
 }
 
-export { convertToLineChartData, convertToPieChartData, dataCorrection };
+export {
+  convertToLineChartData,
+  convertToPieChartData,
+  dataCorrection,
+  convertHistoricalToLineChartData,
+  pickFromData,
+};

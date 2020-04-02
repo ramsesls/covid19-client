@@ -4,6 +4,9 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { DatePicker } from '@material-ui/pickers';
 
 import DayjsUtils from '@date-io/dayjs';
+import dayjs from 'dayjs';
+
+import { historical } from 'config';
 
 import useStyles from './styles';
 
@@ -22,6 +25,7 @@ export default function _DatePicker({ from, to, onFromChange, onToChange }) {
           className={classes.picker}
           autoOk
           maxDate={to}
+          minDate={historical.dates.min}
         />
         <DatePicker
           variant="inline"
@@ -32,6 +36,7 @@ export default function _DatePicker({ from, to, onFromChange, onToChange }) {
           className={classes.picker}
           autoOk
           minDate={from}
+          maxDate={dayjs()}
         />
       </div>
     </MuiPickersUtilsProvider>

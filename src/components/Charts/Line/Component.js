@@ -8,9 +8,9 @@ import { WrongData as WrongDataFallback } from 'errorHandling/Fallbacks';
 import { isMobile } from 'utils';
 import { chartDefaults } from 'config';
 
-function getTickValues([confirmed, deaths]) {
-  const data = confirmed.data.length > deaths.data.length ? confirmed.data : deaths.data;
-  return data.filter((_, i) => !(i % (isMobile ? 8 : 4))).map(item => new Date(item.x));
+function getTickValues(data) {
+  const _data = data[0].data;
+  return _data.filter((_, i) => !(i % (isMobile ? 8 : 4))).map(item => new Date(item.x));
 }
 
 const LineChart = ({ data, type, ...props }) => {
@@ -25,7 +25,7 @@ const LineChart = ({ data, type, ...props }) => {
       xFormat="time:%Y-%m-%d"
       axisBottom={{
         format: '%b %d',
-        tickValues: getTickValues(data),
+        tickValues: data.length && getTickValues(data),
         tickRotation: -45,
         tickPadding: 10,
       }}

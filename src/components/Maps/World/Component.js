@@ -58,7 +58,7 @@ const getMapStyles = color => ({
   }
 });
 
-const WorldMapChart = ({ covidData, setting, setTooltipContent }) => {
+const WorldMapChart = ({ covidData, setting, setTooltipContent, by, className }) => {
   const [zoom, setZoom] = useState(2);
   const classes = useStyles();
 
@@ -83,8 +83,19 @@ const WorldMapChart = ({ covidData, setting, setTooltipContent }) => {
         <ZoomableGroup center={[0, isMobile ? -45 : 25]} zoom={zoom}>
           <Geographies geography={geoUrls.world}>
             {({ geographies }) =>
-              geographies.map(geo => {
-                const country = covidData.find(item => item.iso3 === geo.properties.ISO_A3);
+              geographies.map((geo, i) => {
+                const country = covidData.find(item => {
+                  if (by === 'iso3') {
+                    return item.iso3 === geo.properties.ISO_A3;
+                  } else if (by === 'countryRegion') {
+                    if (item.countryRegion === 'US') {
+                      return geo.properties.NAME === 'United States of America';
+                    } else {
+                      return item.countryRegion === geo.properties.NAME;
+                    }
+
+                  } else return false;
+                });
 
                 return (
                   <Geography
@@ -107,6 +118,10 @@ const WorldMapChart = ({ covidData, setting, setTooltipContent }) => {
       <Controls onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
     </div>
   );
+};
+
+WorldMapChart.defaultProps = {
+  by: 'iso3',
 };
 
 export default withErrorHandling(WorldMapChart, WrongDataFallback);

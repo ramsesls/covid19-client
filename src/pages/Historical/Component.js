@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Switch from '@material-ui/core/Switch';
-import clsx from 'clsx';
 
-import Countries from 'sections/Historical/Countries';
-import DatePicker from 'sections/Historical/DatePicker';
-import Criteria from 'sections/Historical/Criteria';
 import Player from 'sections/Historical/Player';
+import Settings from 'sections/Historical/Settings';
+import Content from 'sections/Historical/Content';
+
+import dayjs from 'dayjs';
 
 import { historical } from 'config';
 
@@ -24,7 +20,7 @@ export default function Historical() {
   const [to, setTo] = useState(historical.dates.to);
   const [criterion, setCriterion] = useState('confirmed');
   const [playerStatus, setPlayerStatus] = useState('paused');
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(100);
 
   useEffect(_ => {
     let timerId;
@@ -33,19 +29,43 @@ export default function Historical() {
       if (progress < 100) {
         timerId = setInterval(_ => {
           setProgress(progress => progress + 1);
-        }, 400);
+        }, 200);
       } else {
         clearInterval(timerId);
         setPlayerStatus('paused');
-        setProgress(0);
       }
     }
 
     return _ => timerId && clearInterval(timerId);
   }, [playerStatus, progress]);
 
-  function handleDrag(ev, data) {
-    const value = Math.round(data.x / data.node.offsetWidth * 100);
+  const handleModeChange = useCallback(ev => {
+    setMode(ev.target.checked ? 'chart' : 'map');
+  }, [setMode]);
+
+  const handleCountriesChange = useCallback((ev, value) => {
+    setSelectedCountries(value);
+  }, [setSelectedCountries]);
+
+  const handleFromChange = useCallback(date => {
+    setFrom(date);
+  }, [setFrom]);
+
+  const handleToChange = useCallback(date => {
+    setTo(date);
+  }, [setTo]);
+
+  const handleCriterionChange = useCallback(ev => {
+    setCriterion(ev.target.value);
+  }, [setCriterion]);
+
+  const togglePlayer = useCallback(_ => {
+    setPlayerStatus(status => status === 'paused' ? 'playing' : 'paused');
+  }, [setPlayerStatus]);
+
+  const handleDrag = useCallback((ev, data) => {
+    setPlayerStatus('paused');
+    const value = Math.round((data.x / (data.node.offsetWidth - 20) * 100));
 
     if (value < 0) {
       setProgress(0);
@@ -54,74 +74,56 @@ export default function Historical() {
     } else {
       setProgress(value);
     }
-  }
+  }, [setProgress, setPlayerStatus]);
 
-  function handleModeChange(ev) {
-    setMode(ev.target.checked ? 'chart' : 'map');
-  }
+  const handleReset = useCallback(_ => {
+    setProgress(0);
+    setPlayerStatus('paused');
+  }, [setProgress, setPlayerStatus]);
 
-  function handleCountriesChange(ev, value) {
-    setSelectedCountries(value);
-  }
+  const currentDate = useMemo(_ => {
+    const _from = dayjs(from);
+    const _to = dayjs(to);
 
-  function handleFromChange(date) {
-    setFrom(date);
-  }
+    const diff = _to.diff(_from, 'days');
 
-  function handleToChange(date) {
-    setTo(date);
-  }
+    const current = diff * progress / 100;
 
-  function handleCriterionChange(ev) {
-    setCriterion(ev.target.value);
-  }
-
-  function togglePlayer() {
-    setPlayerStatus(status => status === 'paused' ? 'playing' : 'paused');
-  }
+    return _from
+      .add(Math.round(current), 'days')
+      .format(historical.dates.format);
+  }, [from, to, progress]);
 
   return (
     <Paper className={classes.root}>
-      {/* Settings */}
-      <Box display="flex" bgcolor="background.paper" className={clsx(classes.settings, classes.controls)}>
-        <Grid container spacing={3}>
-          <Grid item lg={2} md={6} xs={12}>
-            <div className={classes.toggle}>
-              <Typography component="span" noWrap color="inherit">
-                Map
-              </Typography>
-              <Switch color="default" checked={mode === 'chart'} onChange={handleModeChange} />
-              <Typography component="span" noWrap color="inherit">
-                Chart
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item lg={4} md={6} xs={12}>
-            <Countries onChange={handleCountriesChange} selected={selectedCountries} />
-          </Grid>
-          <Grid item lg={3} md={6} xs={12}>
-            <DatePicker
-              from={from}
-              to={to}
-              onFromChange={handleFromChange}
-              onToChange={handleToChange}
-            />
-          </Grid>
-          <Grid item lg={3} md={6} xs={12}>
-            <Criteria onChange={handleCriterionChange} value={criterion} />
-          </Grid>
-        </Grid>
-      </Box>
-      {/* Content */}
-      <Box display="flex" className={classes.content}>
-        <div>
-          Historical
-        </div>
-      </Box>
-      {/* Player */}
-      <Box display="flex" bgcolor="background.paper" className={clsx(classes.player, classes.controls)}>
-        <Player status={playerStatus} onChange={togglePlayer} onDrag={handleDrag} value={progress} />
-      </Box>
+      <Settings
+        mode={mode}
+        from={from}
+        to={to}
+        criterion={criterion}
+        selectedCountries={selectedCountries}
+        onCountriesChange={handleCountriesChange}
+        onFromChange={handleFromChange}
+        onToChange={handleToChange}
+        onModeChange={handleModeChange}
+        onCriterionChange={handleCriterionChange}
+      />
+      <Content
+        mode={mode}
+        from={from}
+        to={to}
+        criterion={criterion}
+        selectedCountries={selectedCountries}
+        currentDate={currentDate}
+      />
+      <Player
+        status={playerStatus}
+        value={progress}
+        onChange={togglePlayer}
+        onDrag={handleDrag}
+        onReset={handleReset}
+        date={currentDate}
+      />
     </Paper>
   );
 }

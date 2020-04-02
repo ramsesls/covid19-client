@@ -41,7 +41,7 @@ function getTooltipContent(point, type) {
   return `${getYAxisValue(point.data.yFormatted, type)} ${point.serieId.toLowerCase()} on ${formatTooltipDate(point.data.x)}`;
 }
 
-export default function PieChart() {
+export default function ProgressChart() {
   const [data, isLoading] = useAPI('/daily');
   const [type, setType] = useState('log');
   const classes = useStyles();

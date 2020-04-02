@@ -1,0 +1,63 @@
+import React from 'react';
+
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import dayjs from 'dayjs';
+
+import Loading from 'components/Loading';
+import Map from 'sections/Historical/Map';
+import Chart from 'sections/Historical/Chart';
+
+import { useAPI } from 'api';
+import { historical } from 'config';
+
+import useStyles from './styles';
+
+const dateFormat = historical.dates.format;
+
+const getFormattedDate = (date, format = dateFormat) => {
+  return dayjs(date).format(format);
+}
+
+export default function Content({
+  mode,
+  from,
+  to,
+  criterion,
+  selectedCountries,
+  currentDate,
+}) {
+  const classes = useStyles();
+  const [data, isLoading] = useAPI(
+    `/historical?from=${getFormattedDate(from)}&to=${getFormattedDate(to)}`
+  );
+
+  const currentData = data && data[currentDate];
+
+  return (
+    <Box display="flex" className={classes.root}>
+      {
+        isLoading
+          ? <Loading />
+          : <div className="full-size">
+            {
+              mode === 'map'
+                ? currentData
+                ? <Map
+                    data={currentData}
+                    criterion={criterion}
+                    by="countryRegion"
+                  />
+                : <Container>No Data</Container>
+                : <Chart
+                  data={data}
+                  selected={selectedCountries}
+                  criterion={criterion}
+                  currentDate={currentDate}
+                 />
+            }
+          </div>
+      }
+    </Box>
+  );
+}
