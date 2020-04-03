@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   root: {
     position: 'relative',
+    overflow: 'hidden',
   },
   icon: {
     'margin-left': 10,
