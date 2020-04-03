@@ -120,7 +120,10 @@ export default function Menu({ isOpen, onClose, onOpen }) {
       onClose={isMobile ? (onClose) : noop}
     >
       <div className={classes.toolbarIcon}>
-        <IconButton onClick={onClose}>
+        <IconButton
+          onClick={onClose}
+          aria-label="close drawer"
+        >
           <ChevronLeftIcon />
         </IconButton>
       </div>
