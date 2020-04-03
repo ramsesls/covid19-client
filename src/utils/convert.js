@@ -45,7 +45,7 @@ const convertHistoricalToLineChartData = (data, type = 'linear', criterion, sele
   const selectedDates = dates.slice(0, dates.indexOf(currentDate));
 
   return Object.entries(data).reduce((acc, [date, item]) => {
-    item.forEach(daily => {
+    item && item.forEach(daily => {
       if (selected.includes(daily.countryRegion) && selectedDates.includes(date)) {
         const country = acc.find(bl => bl.id === daily.countryRegion);
 

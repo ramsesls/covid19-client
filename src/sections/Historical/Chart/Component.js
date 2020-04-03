@@ -57,6 +57,7 @@ export default function Chart({ data, selected, criterion, currentDate }) {
         motionDamping={20}
         pointSize={5}
         pointBorderWidth={1}
+        curve="monotoneX"
       />
       <Paper className={classes.controls}>
         <LineChartButtons onChange={handleTypeChange} type={type} />
