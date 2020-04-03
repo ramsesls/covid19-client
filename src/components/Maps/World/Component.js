@@ -55,29 +55,29 @@ const getMapStyles = color => ({
   }
 });
 
-const WorldMapChart = ({ covidData, setting, setTooltipContent, by, className }) => {
-  const [zoom, setZoom] = useState(2);
+const WorldMapChart = ({ covidData, setting, setTooltipContent, by, className, center, scale }) => {
+  const [_zoom, setZoom] = useState(2);
   const classes = useStyles();
 
   function handleZoomIn() {
-    if (zoom >= 5) return;
-    setZoom(zoom * 1.5);
+    if (_zoom >= 5) return;
+    setZoom(_zoom * 1.5);
   }
 
   function handleZoomOut() {
-    if (zoom <= 1) return;
-    setZoom(zoom / 1.5);
+    if (_zoom <= 1) return;
+    setZoom(_zoom / 1.5);
   }
 
   return (
     <div className={classes.root}>
       <ComposableMap
         projection="geoMercator"
-        projectionConfig={{ scale: 60 }}
+        projectionConfig={{ scale }}
         data-tip=""
         className="full-size"
       >
-        <ZoomableGroup center={[0, isMobile ? -45 : 25]} zoom={zoom}>
+        <ZoomableGroup center={center} zoom={_zoom}>
           <Geographies geography={geoUrls.world}>
             {({ geographies }) =>
               geographies.map((geo, i) => {
@@ -119,6 +119,8 @@ const WorldMapChart = ({ covidData, setting, setTooltipContent, by, className })
 
 WorldMapChart.defaultProps = {
   by: 'iso3',
+  scale: 60,
+  center: [0, isMobile ? -45 : 25],
 };
 
 export default WorldMapChart;

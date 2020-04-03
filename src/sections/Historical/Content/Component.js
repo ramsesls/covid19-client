@@ -8,7 +8,7 @@ import Loading from 'components/Loading';
 import Map from 'sections/Historical/Map';
 import Chart from 'sections/Historical/Chart';
 
-import { useAPI } from 'api';
+import { useHistorical } from 'api';
 import { historical } from 'config';
 
 import useStyles from './styles';
@@ -28,9 +28,7 @@ export default function Content({
   currentDate,
 }) {
   const classes = useStyles();
-  const [data, isLoading] = useAPI(
-    `/historical?from=${getFormattedDate(from)}&to=${getFormattedDate(to)}`
-  );
+  const [data, isLoading] = useHistorical(getFormattedDate(from), getFormattedDate(to));
 
   const prevDayDate = useMemo(_ => {
     return getFormattedDate(dayjs(currentDate, historical.dates.format).subtract(1, 'days'));

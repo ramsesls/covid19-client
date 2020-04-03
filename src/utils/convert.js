@@ -11,7 +11,7 @@ const getY = (value, type) => {
     case 'log10': return Math.log10(value);
     default: return value;
   }
-}
+};
 
 function correctUSData(us) {
   if (us.active === 0) {
@@ -23,7 +23,7 @@ function correctUSData(us) {
 
 const dataCorrection = data => {
   return data.map(country => country.countryRegion === 'US' ? correctUSData(country) : country);
-}
+};
 
 const convertToLineChartData = (data, type = 'linear') => data.reduce((acc, item) => {
   acc[0].data.push({ x: item.reportDate, y: getY(item.deaths.total, type) });
@@ -75,11 +75,25 @@ const convertToPieChartData = (data, criterion) => {
     label: item.countryRegion,
     value: item[criterion],
   }));
-}
+};
+
+const generateDataRange = (from, to, format, isArray) => {
+  let dates = {};
+  const max = to;
+  let current = from;
+
+  while(current.isBefore(max) && (Object.keys(dates).length < 2000)) {
+    dates[current.format(format)] = undefined;
+    current = current.add(1, 'days');
+  }
+
+  return isArray ? Object.keys(dates) : dates;
+};
 
 export {
   convertToLineChartData,
   convertToPieChartData,
   dataCorrection,
   convertHistoricalToLineChartData,
+  generateDataRange,
 };

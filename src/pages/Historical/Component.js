@@ -16,8 +16,8 @@ export default function Historical() {
   const classes = useStyles();
   const [mode, setMode] = useState('map');
   const [selectedCountries, setSelectedCountries] = useState(historical.countries.default);
-  const [from, setFrom] = useState(historical.dates.from);
-  const [to, setTo] = useState(historical.dates.to);
+  const [from, setFrom] = useState(historical.dates.defaults.from);
+  const [to, setTo] = useState(historical.dates.defaults.to);
   const [criterion, setCriterion] = useState('confirmed');
   const [playerStatus, setPlayerStatus] = useState('paused');
   const [progress, setProgress] = useState(100);

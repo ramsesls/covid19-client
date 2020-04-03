@@ -255,8 +255,10 @@ const cancelationMessage = 'operation is manually canceled';
 
 const historical = {
   dates: {
-    from: dayjs().subtract(30, 'days'),
-    to: dayjs().subtract(1, 'days'),
+    defaults: {
+      from: dayjs().subtract(25, 'days'),
+      to: dayjs().subtract(3, 'days'),
+    },
     min: dayjs('01-22-2020'),
     format: 'MM-DD-YYYY',
     lineChartFormat: 'YYYY-MM-DD',

@@ -55,6 +55,8 @@ export default function Chart({ data, selected, criterion, currentDate }) {
         enableArea={false}
         motionStiffness={145}
         motionDamping={20}
+        pointSize={5}
+        pointBorderWidth={1}
       />
       <Paper className={classes.controls}>
         <LineChartButtons onChange={handleTypeChange} type={type} />

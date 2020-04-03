@@ -4,8 +4,8 @@ const useStyles = makeStyles(theme => ({
   controls: {
     position: 'absolute',
     'z-index': 1,
-    top: -theme.spacing(2),
-    left: -theme.spacing(2),
+    top: -10,
+    left: 10,
     width: 225,
     height: 50,
     'padding-left': 5,

@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     'z-index': 1,
     top: 0,
-    left: 0,
+    left: 10,
     width: 225,
     height: 50,
     'padding-left': 5,
