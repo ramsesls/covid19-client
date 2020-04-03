@@ -14,6 +14,8 @@ import { appTitle } from 'config';
 
 import useStyles from './styles';
 
+const themeToggleProps = { 'aria-label': 'toggle theme' };
+
 const AppBar_ = ({ isMenuOpen, onMenuOpen }) => {
   const classes = useStyles();
   const { state: { themeMode }, actions: { setThemeMode } } = useStore();
@@ -43,9 +45,7 @@ const AppBar_ = ({ isMenuOpen, onMenuOpen }) => {
           </Typography>
           <Switch
             aria-label="toggle theme"
-            inputProps={{
-              'aria-label': 'toggle theme',
-            }}
+            inputProps={themeToggleProps}
             color="default"
             checked={themeMode === 'dark'}
             onChange={handleChangeTheme}

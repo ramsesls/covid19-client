@@ -11,6 +11,8 @@ import TableRow from './TableRow';
 import Title from 'components/Title';
 import { formatDate } from 'utils';
 
+const filterInputProps = { 'aria-label': 'filter by country name' };
+
 export default function ReportByCountries({ data }) {
   const [filter, setFilter] = useState('');
 
@@ -21,7 +23,12 @@ export default function ReportByCountries({ data }) {
   return (
     <React.Fragment>
       <Title>Report By Countries</Title>
-      <TextField label="filter by country name..." type="search" onChange={handleFilterChange} />
+      <TextField
+        inputProps={filterInputProps}
+        label="filter by country name..."
+        type="search"
+        onChange={handleFilterChange}
+      />
       <Table size="small">
         <TableHead>
           <TableRow>
