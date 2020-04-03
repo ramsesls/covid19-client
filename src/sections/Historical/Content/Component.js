@@ -33,7 +33,7 @@ export default function Content({
   );
 
   const prevDayDate = useMemo(_ => {
-    return getFormattedDate(dayjs(currentDate).subtract(1, 'days'));
+    return getFormattedDate(dayjs(currentDate, historical.dates.format).subtract(1, 'days'));
   }, [currentDate]);
 
   const currentDataForMap = useMemo(_ => {

@@ -34,7 +34,8 @@ const convertToLineChartData = (data, type = 'linear') => data.reduce((acc, item
 
 const getLineChartData = (data, criterion, type, date) => {
   return {
-    x: dayjs(date || data.lastUpdate).format(historical.dates.lineChartFormat),
+    x: (date ? dayjs(date, historical.dates.format) : dayjs(data.lastUpdate))
+      .format(historical.dates.lineChartFormat),
     y: getY(data[criterion], type),
   };
 };
