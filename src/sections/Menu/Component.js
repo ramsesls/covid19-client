@@ -1,4 +1,4 @@
-import React, { useState, lazy } from 'react';
+import React, { useState } from 'react';
 
 import clsx from 'clsx';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -16,7 +16,11 @@ import PersonIcon from '@material-ui/icons/Person';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import AsyncComponentLoader from 'components/AsyncComponentLoader';
+import Dashboard from '@material-ui/icons/Dashboard';
+import History from '@material-ui/icons/History';
+import Map from '@material-ui/icons/Map';
+import BarChart from '@material-ui/icons/BarChart';
+import Layers from '@material-ui/icons/Dashboard';
 
 import { useLocation } from 'react-router-dom';
 
@@ -25,6 +29,8 @@ import { noop, isMobile } from 'utils';
 import { menuItems, authorInfo } from 'config';
 
 import useStyles from './styles';
+
+const menuIcons = { Dashboard, History, Map, BarChart, Layers };
 
 export const MainList = ({ onMenuClose, items }) => {
   const location = useLocation();
@@ -45,10 +51,7 @@ export const MainList = ({ onMenuClose, items }) => {
             >
               <Link to={item.path}>
                 <ListItemIcon className="_relative">
-                  {/* NOTE: it should be removed */}
-                  {AsyncComponentLoader(
-                    lazy(() => import(`./icons/${item.icon}`)), { size: 30, withoutBackground: true }
-                  )()}
+                  {React.createElement(menuIcons[item.icon])}
                 </ListItemIcon>
                 <ListItemText primary={item.title} />
               </Link>
