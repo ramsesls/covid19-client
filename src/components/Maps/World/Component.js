@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-import withErrorHandling from 'errorHandling';
-import { WrongData as WrongDataFallback } from 'errorHandling/Fallbacks';
-
 import { scaleLinear } from 'd3-scale';
 import {
   ComposableMap,
@@ -124,4 +121,4 @@ WorldMapChart.defaultProps = {
   by: 'iso3',
 };
 
-export default withErrorHandling(WorldMapChart, WrongDataFallback);
+export default WorldMapChart;

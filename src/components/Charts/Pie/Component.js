@@ -2,9 +2,6 @@ import React from 'react';
 
 import { ResponsivePie } from '@nivo/pie';
 
-import withErrorHandling from 'errorHandling';
-import { WrongData as WrongDataFallback } from 'errorHandling/Fallbacks';
-
 import { chartDefaults } from 'config';
 
 const PieChart = ({ data, color, ...props }) => {
@@ -26,4 +23,4 @@ const PieChart = ({ data, color, ...props }) => {
   />
 };
 
-export default withErrorHandling(PieChart, WrongDataFallback);
+export default PieChart;

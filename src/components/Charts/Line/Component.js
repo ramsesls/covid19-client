@@ -2,9 +2,6 @@ import React from 'react';
 
 import { ResponsiveLine } from '@nivo/line'
 
-import withErrorHandling from 'errorHandling';
-import { WrongData as WrongDataFallback } from 'errorHandling/Fallbacks';
-
 import { isMobile } from 'utils';
 import { chartDefaults } from 'config';
 
@@ -35,5 +32,4 @@ const LineChart = ({ data, type, ...props }) => {
   );
 };
 
-export default withErrorHandling(LineChart, WrongDataFallback);
-
+export default LineChart;
