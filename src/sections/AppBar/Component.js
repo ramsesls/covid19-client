@@ -41,7 +41,12 @@ const AppBar_ = ({ isMenuOpen, onMenuOpen }) => {
           <Typography component="span" noWrap color="inherit">
             light
           </Typography>
-          <Switch color="default" checked={themeMode === 'dark'} onChange={handleChangeTheme} />
+          <Switch
+            aria-label="toggle theme"
+            color="default"
+            checked={themeMode === 'dark'}
+            onChange={handleChangeTheme}
+          />
           <Typography component="span" noWrap color="inherit">
             dark
           </Typography>
