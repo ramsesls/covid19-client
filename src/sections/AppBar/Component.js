@@ -43,6 +43,9 @@ const AppBar_ = ({ isMenuOpen, onMenuOpen }) => {
           </Typography>
           <Switch
             aria-label="toggle theme"
+            inputProps={{
+              'aria-label': 'toggle theme',
+            }}
             color="default"
             checked={themeMode === 'dark'}
             onChange={handleChangeTheme}
