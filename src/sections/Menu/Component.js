@@ -1,7 +1,7 @@
 import React, { useState, lazy } from 'react';
 
 import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -26,7 +26,7 @@ import { menuItems, authorInfo } from 'config';
 
 import useStyles from './styles';
 
-export const MainList = ({ handleMenuClose, items }) => {
+export const MainList = ({ onMenuClose, items }) => {
   const location = useLocation();
 
   return <List>
@@ -35,7 +35,7 @@ export const MainList = ({ handleMenuClose, items }) => {
         items.map(item => {
           return (
             <ListItem
-              onClick={handleMenuClose}
+              onClick={onMenuClose}
               button
               selected={
                 location.pathname === item.path ||
@@ -95,7 +95,7 @@ export const OptionalList = ({ handleDialogOpen }) => {
   );
 };
 
-export default function Menu({ isMenuOpen, handleMenuClose }) {
+export default function Menu({ isOpen, onClose, onOpen }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -105,28 +105,30 @@ export default function Menu({ isMenuOpen, handleMenuClose }) {
 
   function handleDialogOpen() {
     setOpen(true);
-    handleMenuClose();
+    onClose();
   }
 
   return (
-    <Drawer
+    <SwipeableDrawer
       variant={isMobile ? 'temporary' : 'permanent'}
+      disableBackdropTransition={false}
       classes={{
-        paper: clsx(classes.drawerPaper, !isMenuOpen && classes.drawerPaperClose),
+        paper: clsx(classes.drawerPaper, !isOpen && !isMobile && classes.drawerPaperClose),
       }}
-      open={isMenuOpen}
-      onClose={isMobile ? handleMenuClose : noop}
+      open={isOpen}
+      onOpen={(onOpen)}
+      onClose={isMobile ? (onClose) : noop}
     >
       <div className={classes.toolbarIcon}>
-        <IconButton onClick={handleMenuClose}>
+        <IconButton onClick={onClose}>
           <ChevronLeftIcon />
         </IconButton>
       </div>
       <Divider />
-      <MainList items={menuItems.main} handleMenuClose={isMobile ? handleMenuClose : noop} />
+      <MainList items={menuItems.main} onMenuClose={isMobile ? onClose : noop} />
       <Divider />
       <OptionalList handleDialogOpen={handleDialogOpen} />
       <ContactsDialog open={open} handleDialogClose={handleDialogClose} />
-    </Drawer>
+    </SwipeableDrawer>
   );
 }

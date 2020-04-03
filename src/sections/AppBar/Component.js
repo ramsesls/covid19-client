@@ -14,7 +14,7 @@ import { appTitle } from 'config';
 
 import useStyles from './styles';
 
-const AppBar_ = ({ isMenuOpen, handleMenuOpen }) => {
+const AppBar_ = ({ isMenuOpen, onMenuOpen }) => {
   const classes = useStyles();
   const { state: { themeMode }, actions: { setThemeMode } } = useStore();
 
@@ -29,7 +29,7 @@ const AppBar_ = ({ isMenuOpen, handleMenuOpen }) => {
           edge="start"
           color="inherit"
           aria-label="open drawer"
-          onClick={handleMenuOpen}
+          onClick={onMenuOpen}
           className={clsx(classes.menuButton, isMenuOpen && !isMobile && classes.menuButtonHidden)}
         >
           <MenuIcon />
