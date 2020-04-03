@@ -21,7 +21,7 @@ function correctUSData(us) {
   return us;
 }
 
-const dataCorrection = (data, location) => {
+const dataCorrection = data => {
   return data.map(country => country.countryRegion === 'US' ? correctUSData(country) : country);
 }
 
