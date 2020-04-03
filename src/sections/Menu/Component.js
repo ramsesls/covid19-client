@@ -40,22 +40,21 @@ export const MainList = ({ onMenuClose, items }) => {
       {
         items.map(item => {
           return (
-            <ListItem
-              onClick={onMenuClose}
-              button
-              selected={
-                location.pathname === item.path ||
-                (location.pathname === '/' && item.isDefault)
-              }
-              key={item.path}
-            >
-              <Link to={item.path}>
-                <ListItemIcon className="_relative">
-                  {React.createElement(menuIcons[item.icon])}
-                </ListItemIcon>
-                <ListItemText primary={item.title} />
-              </Link>
-            </ListItem>
+            <Link key={item.path} to={item.path}>
+              <ListItem
+                onClick={onMenuClose}
+                button
+                selected={
+                  location.pathname === item.path ||
+                  (location.pathname === '/' && item.isDefault)
+                }
+              >
+                  <ListItemIcon className="_relative">
+                    {React.createElement(menuIcons[item.icon])}
+                  </ListItemIcon>
+                  <ListItemText primary={item.title} />
+              </ListItem>
+            </Link>
           );
         })
       }
