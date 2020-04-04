@@ -28,7 +28,7 @@ function ascSorting(a, b, orderBy) {
 }
 
 function getComparator(orderBy, order) {
-  return (a, b) => (order === 'asc' ? 1 : -1) * ascSorting(a, b, orderBy)
+  return (a, b) => (order === 'asc' ? 1 : -1) * ascSorting(a, b, orderBy);
 }
 
 export default function ReportByCountries({ data }) {
