@@ -21,12 +21,6 @@ code {
   position: relative;
 }
 
-.at-the-bottom {
-  position: absolute !important;
-  bottom: 0;
-  width: 100%;
-}
-
 .link-without-styles {
   text-decoration: none;
   display: flex;

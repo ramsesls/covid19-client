@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 
+const repository = 'https://github.com/suren-atoyan/covid19-client';
+
 const colorRanges = [
   { min: 0, max: 100, colorStart: '#FFCCCC', colorEnd: '#FF9999' },
   { min: 100, max: 400, colorStart: '#FF9999', colorEnd: '#FF6666' },
@@ -10,6 +12,33 @@ const colorRanges = [
   { min: 50000, max: 120000, colorStart: '#990000', colorEnd: '#660000' },
   { min: 120000, max: Infinity, colorStart: '#660000', colorEnd: '#330000' },
 ];
+
+const reportTable = {
+  columns: [
+    {
+      dataKey: 'countryRegion',
+      label: 'Country',
+      valueGetter: row => row.countryRegion + (row.provinceState ? ` (${row.provinceState})` : ''),
+    },
+    {
+      dataKey: 'confirmed',
+      label: 'Confirmed',
+    },
+    {
+      dataKey: 'recovered',
+      label: 'Recovered',
+    },
+    {
+      dataKey: 'deaths',
+      label: 'Deaths',
+    },
+    {
+      dataKey: 'active',
+      label: 'Active',
+      props: { align: 'right' },
+    },
+  ],
+};
 
 const mapSettings = {
   main: [
@@ -246,7 +275,7 @@ const copyright = {
 
 const authorInfo = {
   email: 'contact@surenatoyan.com',
-  message: 'To Contact The Author',
+  message: 'To contact the author',
 };
 
 const dateFormat = 'DD MMMM, YYYY';
@@ -268,6 +297,13 @@ const historical = {
   }
 };
 
+const icons = {
+  github: '/icons/octocat.png',
+  jhu: '/icons/jhu.png',
+};
+
+const jhuWebSite = 'https://www.jhu.edu/';
+
 export {
   colorRanges,
   mapSettings,
@@ -285,4 +321,8 @@ export {
   dateFormat,
   cancelationMessage,
   historical,
+  reportTable,
+  icons,
+  repository,
+  jhuWebSite,
 };
