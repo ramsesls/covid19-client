@@ -11,14 +11,9 @@ import TableRow from './TableRow';
 import TableHeadCell from './TableHeadCell';
 import Title from 'components/Title';
 import { formatDate } from 'utils';
+import { reportTable } from 'config';
 
-const columns = [
-  { dataKey: 'countryRegion', label: 'Country' },
-  { dataKey: 'confirmed', label: 'Confirmed' },
-  { dataKey: 'recovered', label: 'Recovered' },
-  { dataKey: 'deaths', label: 'Deaths' },
-  { dataKey: 'active', label: 'Active', props: { align: 'right' } },
-];
+const { columns } = reportTable;
 const filterInputProps = { 'aria-label': 'filter by country name' };
 
 function ascSorting(a, b, orderBy) {
@@ -86,11 +81,14 @@ export default function ReportByCountries({ data }) {
           {sortedData.map((row, index) => (
             <Tooltip key={index} title={`Last update: ${formatDate(row.lastUpdate)}`} placement="left">
               <TableRow>
-                <TableCell>{row.countryRegion}{row.provinceState ? ` (${row.provinceState})` : ''}</TableCell>
-                <TableCell>{row.confirmed}</TableCell>
-                <TableCell>{row.recovered}</TableCell>
-                <TableCell>{row.deaths}</TableCell>
-                <TableCell align="right">{row.active}</TableCell>
+                {columns.map(({ dataKey, valueGetter, props }) => (
+                  <TableCell
+                    key={dataKey}
+                    {...props}
+                  >
+                    {valueGetter ? valueGetter(row) : row[dataKey]}
+                  </TableCell>
+                ))}
               </TableRow>
             </Tooltip>
           ))}

@@ -11,6 +11,33 @@ const colorRanges = [
   { min: 120000, max: Infinity, colorStart: '#660000', colorEnd: '#330000' },
 ];
 
+const reportTable = {
+  columns: [
+    {
+      dataKey: 'countryRegion',
+      label: 'Country',
+      valueGetter: row => row.countryRegion + (row.provinceState ? ` (${row.provinceState})` : ''),
+    },
+    {
+      dataKey: 'confirmed',
+      label: 'Confirmed',
+    },
+    {
+      dataKey: 'recovered',
+      label: 'Recovered',
+    },
+    {
+      dataKey: 'deaths',
+      label: 'Deaths',
+    },
+    {
+      dataKey: 'active',
+      label: 'Active',
+      props: { align: 'right' },
+    },
+  ],
+};
+
 const mapSettings = {
   main: [
     {
@@ -285,4 +312,5 @@ export {
   dateFormat,
   cancelationMessage,
   historical,
+  reportTable,
 };
