@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,20 +8,56 @@ import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import TableRow from './TableRow';
+import TableHeadCell from './TableHeadCell';
 import Title from 'components/Title';
 import { formatDate } from 'utils';
 
+const columns = [
+  { dataKey: 'countryRegion', label: 'Country' },
+  { dataKey: 'confirmed', label: 'Confirmed' },
+  { dataKey: 'recovered', label: 'Recovered' },
+  { dataKey: 'deaths', label: 'Deaths' },
+  { dataKey: 'active', label: 'Active', props: { align: 'right' } },
+];
 const filterInputProps = { 'aria-label': 'filter by country name' };
+
+function ascSorting(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) return 1;
+  if (b[orderBy] > a[orderBy]) return -1;
+  return 0;
+}
+
+function getComparator(orderBy, order) {
+  return (a, b) => (order === 'asc' ? 1 : -1) * ascSorting(a, b, orderBy)
+}
 
 export default function ReportByCountries({ data }) {
   const [filter, setFilter] = useState('');
+  const [order, setOrder] = useState('desc');
+  const [orderBy, setOrderBy] = useState('confirmed');
 
   const handleFilterChange = useCallback(ev => {
     setFilter(ev.target.value.toLowerCase());
-  }, [setFilter]);
+  }, []);
+
+  const handleSortChange = useCallback(id => {
+    const sameColumn = orderBy === id;
+    setOrder(prev => sameColumn && prev === 'asc' ? 'desc' : 'asc');
+    setOrderBy(id);
+  }, [orderBy]);
+
+  const filteredData = useMemo(
+    _ => data.filter(item => item.countryRegion.toLowerCase().includes(filter)),
+    [data, filter],
+  );
+
+  const sortedData = useMemo(
+    _ => filteredData.sort(getComparator(orderBy, order)),
+    [filteredData, order, orderBy],
+  );
 
   return (
-    <React.Fragment>
+    <>
       <Title>Report By Countries</Title>
       <TextField
         inputProps={filterInputProps}
@@ -32,15 +68,22 @@ export default function ReportByCountries({ data }) {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Country</TableCell>
-            <TableCell>Confirmed</TableCell>
-            <TableCell>Recovered</TableCell>
-            <TableCell>Deaths</TableCell>
-            <TableCell align="right">Active</TableCell>
+            {columns.map(({ dataKey, label, props }) => (
+              <TableHeadCell
+                key={dataKey}
+                id={dataKey}
+                order={order}
+                orderBy={orderBy}
+                onSortChange={handleSortChange}
+                {...props}
+              >
+                {label}
+              </TableHeadCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.filter(item => item.countryRegion.toLowerCase().includes(filter)).map((row, index) => (
+          {sortedData.map((row, index) => (
             <Tooltip key={index} title={`Last update: ${formatDate(row.lastUpdate)}`} placement="left">
               <TableRow>
                 <TableCell>{row.countryRegion}{row.provinceState ? ` (${row.provinceState})` : ''}</TableCell>
@@ -53,6 +96,6 @@ export default function ReportByCountries({ data }) {
           ))}
         </TableBody>
       </Table>
-    </React.Fragment>
+    </>
   );
 }
